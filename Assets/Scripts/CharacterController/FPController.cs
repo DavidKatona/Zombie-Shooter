@@ -99,7 +99,8 @@ public class FPController : MonoBehaviour
     private bool IsGrounded()
     {
         RaycastHit hitInfo;
-        if (Physics.SphereCast(cachedTransform.position, cachedCapsuleCollider.radius, Vector3.down, out hitInfo, (cachedCapsuleCollider.height / 2f) - cachedCapsuleCollider.radius + 0.1f))
+        if (Physics.SphereCast(cachedTransform.position, cachedCapsuleCollider.radius, Vector3.down, out hitInfo,
+            (cachedCapsuleCollider.height / 2f) - cachedCapsuleCollider.radius + 0.1f))
         {
             return true;
         }
@@ -150,7 +151,7 @@ public class FPController : MonoBehaviour
     {
         if (Input.GetButtonDown("Jump") && IsGrounded())
         {
-            cachedRigidbody.AddForce(new Vector3(0, 300, 0));
+            cachedRigidbody.AddForce(0, 300, 0);
         }
     }
 
@@ -159,7 +160,7 @@ public class FPController : MonoBehaviour
         float x = Input.GetAxis("Horizontal") * Speed;
         float z = Input.GetAxis("Vertical") * Speed;
 
-        cachedTransform.position += cachedCamera.transform.forward * z + cachedCamera.transform.right * x;
+        cachedTransform.position += (cachedTransform.forward * z + cachedTransform.right * x);
     }
 
     private void LateUpdate()
