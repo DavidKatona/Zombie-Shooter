@@ -76,41 +76,71 @@ namespace Assets.Scripts.CharacterController
         /// Cached transform component attached to the GameObject.
         /// </summary>
 
-        public Transform cachedTransform { get; private set; }
+        public Transform CachedTransform { get; private set; }
 
         /// <summary>
         /// Cached capsule collider component attached to the GameObject.
         /// </summary>
         /// 
-        public CapsuleCollider cachedCapsuleCollider { get; private set; }
+        public CapsuleCollider CachedCapsuleCollider { get; private set; }
 
         /// <summary>
         /// Cached rigidbody compoonent attached to the GameObject.
         /// </summary>
 
-        public Rigidbody cachedRigidbody { get; private set; }
+        public Rigidbody CachedRigidbody { get; private set; }
 
         /// <summary>
         /// Cached camera component attached to the GameObject or one of its children.
         /// </summary>
 
-        public Camera cachedCamera { get; private set; }
+        public Camera CachedCamera { get; private set; }
 
         /// <summary>
         /// Cached animator component attached to the GameObject or one of its children.
         /// </summary>
 
-        public Animator cachedAnimator { get; private set; }
+        public Animator CachedAnimator { get; private set; }
 
         #endregion
 
         #region METHODS
 
+        private void HandleAnimations()
+        {
+            if (Input.GetButtonDown("Fire1"))
+            {
+                CachedAnimator.SetTrigger("Fire");
+            }
+
+            if (Input.GetButtonDown("Reload"))
+            {
+                CachedAnimator.SetTrigger("Reload");
+            }
+
+            if (Input.GetKeyDown(KeyCode.F))
+            {
+                CachedAnimator.SetBool("IsGunHolstered", !CachedAnimator.GetBool("IsGunHolstered"));
+            }
+
+            if (_xAxisInputModifier != 0 || _zAxisInputModifier != 0)
+            {
+                if (!CachedAnimator.GetBool("IsWalking"))
+                {
+                    CachedAnimator.SetBool("IsWalking", true);
+                }
+            }
+            else if (CachedAnimator.GetBool("IsWalking"))
+            {
+                CachedAnimator.SetBool("IsWalking", false);
+            }
+        }
+
         private bool IsGrounded()
         {
             RaycastHit hitInfo;
-            if (Physics.SphereCast(cachedTransform.position, cachedCapsuleCollider.radius, Vector3.down, out hitInfo,
-                (cachedCapsuleCollider.height / 2f) - cachedCapsuleCollider.radius + 0.1f))
+            if (Physics.SphereCast(CachedTransform.position, CachedCapsuleCollider.radius, Vector3.down, out hitInfo,
+                (CachedCapsuleCollider.height / 2f) - CachedCapsuleCollider.radius + 0.1f))
             {
                 return true;
             }
@@ -146,16 +176,16 @@ namespace Assets.Scripts.CharacterController
         {
             // Cache components.
 
-            cachedTransform = GetComponent<Transform>();
-            cachedCapsuleCollider = GetComponent<CapsuleCollider>();
-            cachedRigidbody = GetComponent<Rigidbody>();
-            cachedCamera = GetComponentInChildren<Camera>();
-            cachedAnimator = GetComponentInChildren<Animator>();
+            CachedTransform = GetComponent<Transform>();
+            CachedCapsuleCollider = GetComponent<CapsuleCollider>();
+            CachedRigidbody = GetComponent<Rigidbody>();
+            CachedCamera = GetComponentInChildren<Camera>();
+            CachedAnimator = GetComponentInChildren<Animator>();
 
             // Initialize fields/properties.
 
-            CameraRotation = cachedCamera.transform.localRotation;
-            CharacterRotation = cachedTransform.localRotation;
+            CameraRotation = CachedCamera.transform.localRotation;
+            CharacterRotation = CachedTransform.localRotation;
         }
 
         private void Update()
@@ -178,19 +208,7 @@ namespace Assets.Scripts.CharacterController
 
             CameraRotation = ClampCameraPitch(CameraRotation);
 
-            if (Input.GetButtonDown("Fire1"))
-            {
-                cachedAnimator.SetBool("IsFiring", true);
-            }
-            else if (Input.GetButtonUp("Fire1"))
-            {
-                cachedAnimator.SetBool("IsFiring", false);
-            }
-
-            if (Input.GetKeyDown(KeyCode.F))
-            {
-                cachedAnimator.SetBool("IsGunHolstered", !cachedAnimator.GetBool("IsGunHolstered"));
-            }
+            HandleAnimations();
         }
 
         private void FixedUpdate()
@@ -199,19 +217,19 @@ namespace Assets.Scripts.CharacterController
 
             if (_isJumpPressed)
             {
-                cachedRigidbody.AddForce(0, 300, 0);
+                CachedRigidbody.AddForce(0, 300, 0);
                 _isJumpPressed = false;
             }
 
-            cachedTransform.position += (cachedTransform.forward * _zAxisInputModifier * Speed + cachedTransform.right * _xAxisInputModifier * Speed);
+            CachedTransform.position += (CachedTransform.forward * _zAxisInputModifier * Speed + CachedTransform.right * _xAxisInputModifier * Speed);
         }
 
         private void LateUpdate()
         {
             // Handle camera movement and animations in late update.
 
-            cachedCamera.transform.localRotation = CameraRotation;
-            cachedTransform.localRotation = CharacterRotation;
+            CachedCamera.transform.localRotation = CameraRotation;
+            CachedTransform.localRotation = CharacterRotation;
         }
 
         #endregion
