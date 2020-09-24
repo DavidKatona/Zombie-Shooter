@@ -96,6 +96,12 @@ namespace Assets.Scripts.CharacterController
 
         public Camera cachedCamera { get; private set; }
 
+        /// <summary>
+        /// Cached animator component attached to the GameObject or one of its children.
+        /// </summary>
+        
+        public Animator cachedAnimator { get; private set; }
+
         #endregion
 
         #region METHODS
@@ -144,6 +150,7 @@ namespace Assets.Scripts.CharacterController
             cachedCapsuleCollider = GetComponent<CapsuleCollider>();
             cachedRigidbody = GetComponent<Rigidbody>();
             cachedCamera = GetComponentInChildren<Camera>();
+            cachedAnimator = GetComponentInChildren<Animator>();
 
             // Initialize fields/properties.
 
@@ -162,10 +169,27 @@ namespace Assets.Scripts.CharacterController
 
             _xAxisInputModifier = Input.GetAxis("Horizontal");
             _zAxisInputModifier = Input.GetAxis("Vertical");
+
+            float yRotation = Input.GetAxis("Mouse X") * MouseSensitivity;
+            float xRotation = Input.GetAxis("Mouse Y") * MouseSensitivity;
+
+            CameraRotation *= Quaternion.Euler(-xRotation, 0, 0);
+            CharacterRotation *= Quaternion.Euler(0, yRotation, 0);
+
+            CameraRotation = ClampCameraPitch(CameraRotation);
+
+            // Handle animation inputs.
+
+            if (Input.GetKeyDown(KeyCode.F))
+            {
+                cachedAnimator.SetBool("IsGunHolstered", !cachedAnimator.GetBool("IsGunHolstered"));
+            }
         }
 
         private void FixedUpdate()
         {
+            // Handle movement.
+
             if (_isJumpPressed)
             {
                 cachedRigidbody.AddForce(0, 300, 0);
@@ -177,13 +201,7 @@ namespace Assets.Scripts.CharacterController
 
         private void LateUpdate()
         {
-            float yRotation = Input.GetAxis("Mouse X") * MouseSensitivity;
-            float xRotation = Input.GetAxis("Mouse Y") * MouseSensitivity;
-
-            CameraRotation *= Quaternion.Euler(-xRotation, 0, 0);
-            CharacterRotation *= Quaternion.Euler(0, yRotation, 0);
-
-            CameraRotation = ClampCameraPitch(CameraRotation);
+            // Handle camera movement and animations in late update.
 
             cachedCamera.transform.localRotation = CameraRotation;
             cachedTransform.localRotation = CharacterRotation;
