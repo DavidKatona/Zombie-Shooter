@@ -99,7 +99,7 @@ namespace Assets.Scripts.CharacterController
         /// <summary>
         /// Cached animator component attached to the GameObject or one of its children.
         /// </summary>
-        
+
         public Animator cachedAnimator { get; private set; }
 
         #endregion
@@ -178,7 +178,14 @@ namespace Assets.Scripts.CharacterController
 
             CameraRotation = ClampCameraPitch(CameraRotation);
 
-            // Handle animation inputs.
+            if (Input.GetButtonDown("Fire1"))
+            {
+                cachedAnimator.SetBool("IsFiring", true);
+            }
+            else if (Input.GetButtonUp("Fire1"))
+            {
+                cachedAnimator.SetBool("IsFiring", false);
+            }
 
             if (Input.GetKeyDown(KeyCode.F))
             {
