@@ -24,7 +24,7 @@ namespace Assets.Scripts.CharacterController
         private float _yAxisRotation;
         private bool _isJumpPressed;
         private bool _isWalkingInvoked;
-        private bool _wasGrounded;
+        private bool _wasGrounded = true;
         private Quaternion _cameraRotation;
         private Quaternion _characterRotation;
 

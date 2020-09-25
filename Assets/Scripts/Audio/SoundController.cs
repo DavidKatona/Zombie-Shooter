@@ -117,6 +117,7 @@ public class SoundController : MonoBehaviour
         GameObject audioSourceHolder = new GameObject("Jumping sound");
         audioSourceHolder.transform.position = transform.position;
         AudioSource audioSource = audioSourceHolder.AddComponent<AudioSource>();
+
         audioSource.clip = JumpSound;
         audioSource.Play();
         Destroy(audioSourceHolder, JumpSound.length);
@@ -127,6 +128,7 @@ public class SoundController : MonoBehaviour
         GameObject audioSourceHolder = new GameObject("Landing sound");
         audioSourceHolder.transform.position = transform.position;
         AudioSource audioSource = audioSourceHolder.AddComponent<AudioSource>();
+
         audioSource.clip = LandingSound;
         audioSource.Play();
         Destroy(audioSourceHolder, LandingSound.length);
