@@ -20,6 +20,8 @@ namespace Assets.Scripts.CharacterController
 
         private float _xAxisInputModifier;
         private float _zAxisInputModifier;
+        private float _xAxisRotation;
+        private float _yAxisRotation;
         private bool _isJumpPressed;
         private bool _isWalkingInvoked;
         private bool _wasGrounded;
@@ -181,21 +183,21 @@ namespace Assets.Scripts.CharacterController
         /// <summary>
         /// Clamps the pitch (x axis rotation) of the camera component so its constrained between two values.
         /// </summary>
-        /// <param name="currentCameraRotation"></param>
+        /// <param name="quaternion"></param>
         /// <returns></returns>
 
-        private Quaternion ClampCameraPitch(Quaternion currentCameraRotation)
+        private Quaternion ClampCameraPitch(Quaternion quaternion)
         {
-            currentCameraRotation.x /= currentCameraRotation.w;
-            currentCameraRotation.y /= currentCameraRotation.w;
-            currentCameraRotation.z /= currentCameraRotation.w;
-            currentCameraRotation.w = 1.0f;
+            quaternion.x /= quaternion.w;
+            quaternion.y /= quaternion.w;
+            quaternion.z /= quaternion.w;
+            quaternion.w = 1.0f;
 
-            float cameraPitch = 2.0f * Mathf.Rad2Deg * Mathf.Atan(currentCameraRotation.x);
+            float cameraPitch = 2.0f * Mathf.Rad2Deg * Mathf.Atan(quaternion.x);
             cameraPitch = Mathf.Clamp(cameraPitch, MinimumCameraPitch, MaximumCameraPitch);
-            currentCameraRotation.x = Mathf.Tan(0.5f * Mathf.Deg2Rad * cameraPitch);
+            quaternion.x = Mathf.Tan(0.5f * Mathf.Deg2Rad * cameraPitch);
 
-            return currentCameraRotation;
+            return quaternion;
         }
 
         #endregion
@@ -238,13 +240,8 @@ namespace Assets.Scripts.CharacterController
             _xAxisInputModifier = Input.GetAxis("Horizontal");
             _zAxisInputModifier = Input.GetAxis("Vertical");
 
-            float yRotation = Input.GetAxis("Mouse X") * MouseSensitivity;
-            float xRotation = Input.GetAxis("Mouse Y") * MouseSensitivity;
-
-            CameraRotation *= Quaternion.Euler(-xRotation, 0, 0);
-            CharacterRotation *= Quaternion.Euler(0, yRotation, 0);
-
-            CameraRotation = ClampCameraPitch(CameraRotation);
+            _yAxisRotation = Input.GetAxis("Mouse X") * MouseSensitivity;
+            _xAxisRotation = Input.GetAxis("Mouse Y") * MouseSensitivity;
 
             HandleAnimations();
         }
@@ -268,14 +265,13 @@ namespace Assets.Scripts.CharacterController
             }
 
             CachedTransform.position += (CachedTransform.forward * _zAxisInputModifier * Speed + CachedTransform.right * _xAxisInputModifier * Speed);
-        }
 
-        private void LateUpdate()
-        {
-            // Handle camera movement and animations in late update.
-
-            CachedCamera.transform.localRotation = CameraRotation;
+            CharacterRotation *= Quaternion.Euler(0, _yAxisRotation, 0);
             CachedTransform.localRotation = CharacterRotation;
+
+            CameraRotation *= Quaternion.Euler(-_xAxisRotation, 0, 0);
+            CameraRotation = ClampCameraPitch(CameraRotation);
+            CachedCamera.transform.localRotation = CameraRotation;
         }
 
         private void OnCollisionEnter(Collision collision)
