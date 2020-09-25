@@ -144,9 +144,14 @@ namespace Assets.Scripts.CharacterController
             }
         }
 
+        /// <summary>
+        /// Invokes the PlayFootstepAudio() method from the cached sound controller attached to this game object.
+        /// (Note: This function was wrapped inside this method so the string we pass to Invoke() won't be affected by refactoring).
+        /// </summary>
+
         private void InvokeFootstepSounds()
         {
-            CachedSoundController.PlayFootstepAudios();
+            CachedSoundController.PlayFootstepAudio();
         }
 
         private bool IsGrounded()
@@ -187,7 +192,7 @@ namespace Assets.Scripts.CharacterController
 
         private void Awake()
         {
-            // Cache components.
+            // Cache components and initialize components.
 
             CachedTransform = GetComponent<Transform>();
             CachedCapsuleCollider = GetComponent<CapsuleCollider>();

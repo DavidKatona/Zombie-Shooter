@@ -100,7 +100,7 @@ public class SoundController : MonoBehaviour
         CachedAudioSource.Play();
     }
 
-    public void PlayFootstepAudios()
+    public void PlayFootstepAudio()
     {
         GameObject audioSourceHolder = new GameObject("Footstep sound");
         audioSourceHolder.transform.position = transform.position;
@@ -138,7 +138,7 @@ public class SoundController : MonoBehaviour
 
     private void Awake()
     {
-        // Cache components.
+        // Cache components and initialize components.
 
         CachedAudioSource = GetComponent<AudioSource>();
         CachedAnimator = GetComponent<Animator>();
