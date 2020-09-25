@@ -1390,6 +1390,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _shotSound: {fileID: 8300000, guid: 6b6425c25969c0e439916bec0a5c4957, type: 3}
+  _footstepSounds:
+  - {fileID: 8300000, guid: 41cabf8e1b2bf41979caa467071a7c7b, type: 3}
+  - {fileID: 8300000, guid: 53dcb87c0d58147c6a32f226285470b7, type: 3}
+  - {fileID: 8300000, guid: 4deee5c4efdfb413f865fc2f740f7308, type: 3}
+  - {fileID: 8300000, guid: 3be44f8ee8a88445d9d23221fabacd32, type: 3}
+  _jumpSound: {fileID: 8300000, guid: 286d21c70c6da45ca8f00254cd221c81, type: 3}
+  _landingSound: {fileID: 8300000, guid: 4684cd292999946fbb09865cdec50596, type: 3}
 --- !u!1 &1885552650
 GameObject:
   m_ObjectHideFlags: 0

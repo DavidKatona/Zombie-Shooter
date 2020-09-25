@@ -102,6 +102,12 @@ namespace Assets.Scripts.CharacterController
 
         public Animator CachedAnimator { get; private set; }
 
+        /// <summary>
+        /// Cached sound controller component attached to the GameObject or one of its children.
+        /// </summary>
+
+        public SoundController CachedSoundController { get; private set; }
+
         #endregion
 
         #region METHODS
@@ -128,12 +134,19 @@ namespace Assets.Scripts.CharacterController
                 if (!CachedAnimator.GetBool("IsWalking"))
                 {
                     CachedAnimator.SetBool("IsWalking", true);
+                    InvokeRepeating("InvokeFootstepSounds", 0, 0.4f);
                 }
             }
             else if (CachedAnimator.GetBool("IsWalking"))
             {
                 CachedAnimator.SetBool("IsWalking", false);
+                CancelInvoke("InvokeFootstepSounds");
             }
+        }
+
+        private void InvokeFootstepSounds()
+        {
+            CachedSoundController.PlayFootstepAudios();
         }
 
         private bool IsGrounded()
@@ -181,6 +194,7 @@ namespace Assets.Scripts.CharacterController
             CachedRigidbody = GetComponent<Rigidbody>();
             CachedCamera = GetComponentInChildren<Camera>();
             CachedAnimator = GetComponentInChildren<Animator>();
+            CachedSoundController = GetComponentInChildren<SoundController>();
 
             // Initialize fields/properties.
 
@@ -219,6 +233,13 @@ namespace Assets.Scripts.CharacterController
             {
                 CachedRigidbody.AddForce(0, 300, 0);
                 _isJumpPressed = false;
+
+                CachedSoundController.PlayJumpingSound();
+
+                if (CachedAnimator.GetBool("IsWalking"))
+                {
+                    CancelInvoke("InvokeFootstepSounds");
+                }
             }
 
             CachedTransform.position += (CachedTransform.forward * _zAxisInputModifier * Speed + CachedTransform.right * _xAxisInputModifier * Speed);
@@ -230,6 +251,19 @@ namespace Assets.Scripts.CharacterController
 
             CachedCamera.transform.localRotation = CameraRotation;
             CachedTransform.localRotation = CharacterRotation;
+        }
+
+        private void OnCollisionEnter(Collision collision)
+        {
+            if (IsGrounded())
+            {
+                CachedSoundController.PlayLandingSound();
+            }
+
+            if (CachedAnimator.GetBool("IsWalking"))
+            {
+                InvokeRepeating("InvokeFootstepSounds", 0, 0.4f);
+            }
         }
 
         #endregion
