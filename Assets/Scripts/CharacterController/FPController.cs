@@ -21,6 +21,8 @@ namespace Assets.Scripts.CharacterController
         private float _xAxisInputModifier;
         private float _zAxisInputModifier;
         private bool _isJumpPressed;
+        private bool _isWalkingInvoked;
+        private bool _wasGrounded;
         private Quaternion _cameraRotation;
         private Quaternion _characterRotation;
 
@@ -48,11 +50,19 @@ namespace Assets.Scripts.CharacterController
             set { _mouseSensitivity = value; }
         }
 
+        /// <summary>
+        /// The maximum pitch the camera can achieve in degrees.
+        /// </summary>
+
         public float MaximumCameraPitch
         {
             get { return _maximumCameraPitch; }
             set { _maximumCameraPitch = value; }
         }
+
+        /// <summary>
+        /// The minimum pitch the camera can achieve in degrees.
+        /// </summary>
 
         public float MinimumCameraPitch
         {
@@ -131,7 +141,7 @@ namespace Assets.Scripts.CharacterController
 
             if (_xAxisInputModifier != 0 || _zAxisInputModifier != 0)
             {
-                if (!CachedAnimator.GetBool("IsWalking"))
+                if (!CachedAnimator.GetBool("IsWalking") && IsGrounded())
                 {
                     CachedAnimator.SetBool("IsWalking", true);
                     InvokeRepeating("InvokeFootstepSounds", 0, 0.4f);
@@ -141,6 +151,7 @@ namespace Assets.Scripts.CharacterController
             {
                 CachedAnimator.SetBool("IsWalking", false);
                 CancelInvoke("InvokeFootstepSounds");
+                _isWalkingInvoked = false;
             }
         }
 
@@ -151,6 +162,7 @@ namespace Assets.Scripts.CharacterController
 
         private void InvokeFootstepSounds()
         {
+            _isWalkingInvoked = true;
             CachedSoundController.PlayFootstepAudio();
         }
 
@@ -192,7 +204,7 @@ namespace Assets.Scripts.CharacterController
 
         private void Awake()
         {
-            // Cache components and initialize components.
+            // Cache and initialize components.
 
             CachedTransform = GetComponent<Transform>();
             CachedCapsuleCollider = GetComponent<CapsuleCollider>();
@@ -211,10 +223,17 @@ namespace Assets.Scripts.CharacterController
         {
             // Handle input. Should go to its own class.
 
-            if (Input.GetButtonDown("Jump") && IsGrounded())
+            bool isGrounded = IsGrounded();
+            if (Input.GetButtonDown("Jump") && isGrounded)
             {
                 _isJumpPressed = true;
             }
+            else if (!_wasGrounded && isGrounded)
+            {
+                CachedSoundController.PlayLandingSound();
+            }
+
+            _wasGrounded = isGrounded;
 
             _xAxisInputModifier = Input.GetAxis("Horizontal");
             _zAxisInputModifier = Input.GetAxis("Vertical");
@@ -244,6 +263,7 @@ namespace Assets.Scripts.CharacterController
                 if (CachedAnimator.GetBool("IsWalking"))
                 {
                     CancelInvoke("InvokeFootstepSounds");
+                    _isWalkingInvoked = false;
                 }
             }
 
@@ -260,12 +280,7 @@ namespace Assets.Scripts.CharacterController
 
         private void OnCollisionEnter(Collision collision)
         {
-            if (IsGrounded())
-            {
-                CachedSoundController.PlayLandingSound();
-            }
-
-            if (CachedAnimator.GetBool("IsWalking"))
+            if (CachedAnimator.GetBool("IsWalking") && !_isWalkingInvoked)
             {
                 InvokeRepeating("InvokeFootstepSounds", 0, 0.4f);
             }

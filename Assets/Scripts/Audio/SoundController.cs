@@ -138,7 +138,7 @@ public class SoundController : MonoBehaviour
 
     private void Awake()
     {
-        // Cache components and initialize components.
+        // Cache and initialize components.
 
         CachedAudioSource = GetComponent<AudioSource>();
         CachedAnimator = GetComponent<Animator>();
