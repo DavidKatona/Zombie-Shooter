@@ -13,10 +13,6 @@ namespace Assets.Scripts.CollectibleSystem.CollectibleTypes
         [Tooltip("The audio file(s) that play when this collectible is picked up.")]
         [SerializeField] private AudioClip _pickupSound = null;
 
-        [Header("Effect Targets")]
-        [Tooltip("The target scriptable object(s) which the collectible will affect upon pickup.")]
-        [SerializeField] private ScriptableObject[] _effectTargets = null;
-
         #endregion
 
         #region PROPERTIES
@@ -26,12 +22,6 @@ namespace Assets.Scripts.CollectibleSystem.CollectibleTypes
         /// </summary>
 
         public AudioClip PickupSound { get { return _pickupSound; } }
-
-        /// <summary>
-        /// The target scriptable object(s) which the collectible will affect upon pickup.
-        /// </summary>
-
-        public ScriptableObject[] EffectTargets { get { return _effectTargets; } }
 
         #endregion
 
