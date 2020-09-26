@@ -2,11 +2,21 @@
 
 namespace Assets.Scripts.CollectibleSystem.CollectibleTypes
 {
-    public class AmmoBox : MonoBehaviour, ICollectible
+    public class AmmoBox : BaseCollectible
     {
-        public void Collect()
+        #region EDITOR EXPOSED FIELDS
+
+
+
+        #endregion
+
+        #region METHODS
+
+        protected override void ApplyEffects()
         {
-            throw new System.NotImplementedException();
+            Debug.Log("Called from AmmoBox Type.");
         }
+
+        #endregion
     }
 }
