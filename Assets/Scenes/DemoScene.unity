@@ -3264,6 +3264,17 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 3202807450121171626, guid: 7eb2d2e5ed5664c3da253b1245ff8187,
+        type: 3}
+      propertyPath: _healthRestored
+      value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: 3202807450121171626, guid: 7eb2d2e5ed5664c3da253b1245ff8187,
+        type: 3}
+      propertyPath: _healthSO
+      value: 
+      objectReference: {fileID: 11400000, guid: fb9f3d680cfe26e4ca6e3bb0a14ab613,
+        type: 2}
     - target: {fileID: 7272216977675260089, guid: 7eb2d2e5ed5664c3da253b1245ff8187,
         type: 3}
       propertyPath: m_LocalPosition.x

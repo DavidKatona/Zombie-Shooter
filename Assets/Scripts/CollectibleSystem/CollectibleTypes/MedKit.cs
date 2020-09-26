@@ -14,7 +14,7 @@ namespace Assets.Scripts.CollectibleSystem.CollectibleTypes
 
         protected override void ApplyEffects()
         {
-            Debug.Log("Called from MedKit Type.");
+            Debug.Log("Called from AmmoBox Type.");
         }
 
         #endregion

@@ -11,11 +11,11 @@ namespace Assets.Scripts.ScriptableObjects
         [Tooltip("The initial value this object holds before its deserialized by Unity.")]
         [SerializeField] private int _initialValue = 0;
 
-        [Tooltip("The maximum value this scriptable object can store.")]
-        [SerializeField] private int _maximumValue = 1;
-
         [Tooltip("The minimum value this scriptable object can store.")]
         [SerializeField] private int _minimumValue = 0;
+
+        [Tooltip("The maximum value this scriptable object can store.")]
+        [SerializeField] private int _maximumValue = 1;
 
         #endregion
 
@@ -32,9 +32,9 @@ namespace Assets.Scripts.ScriptableObjects
         /// </summary>
 
         public int InitialValue
-        { 
+        {
             get { return _initialValue; }
-            private set{ _initialValue = value; }
+            private set { _initialValue = value; }
         }
 
         /// <summary>
@@ -47,21 +47,21 @@ namespace Assets.Scripts.ScriptableObjects
             set
             {
                 _runtimeValue = value;
-                Mathf.Clamp(_runtimeValue, MinimumValue, MaximumValue);
+                _runtimeValue = Mathf.Clamp(_runtimeValue, MinimumValue, MaximumValue);
             }
         }
-
-        /// <summary>
-        /// The maximum value this scriptable object can store.
-        /// </summary>
-
-        public int MaximumValue { get { return _maximumValue; } }
 
         /// <summary>
         /// The minimum value this scriptable object can store.
         /// </summary>
 
         public int MinimumValue { get { return _minimumValue; } }
+
+        /// <summary>
+        /// The maximum value this scriptable object can store.
+        /// </summary>
+
+        public int MaximumValue { get { return _maximumValue; } }
 
         #endregion
 
