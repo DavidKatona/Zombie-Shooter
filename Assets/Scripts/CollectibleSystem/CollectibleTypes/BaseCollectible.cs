@@ -2,13 +2,20 @@
 
 namespace Assets.Scripts.CollectibleSystem.CollectibleTypes
 {
-    public class BaseCollectible : MonoBehaviour, ICollectible
+    /// <summary>
+    /// The abstract base class for collectible types.
+    /// </summary>
+    public abstract class BaseCollectible : MonoBehaviour, ICollectible
     {
         #region EDITOR EXPOSED FIELDS
 
         [Header("Audio Files")]
         [Tooltip("The audio file(s) that play when this collectible is picked up.")]
-        [SerializeField] private AudioClip _pickupSound;
+        [SerializeField] private AudioClip _pickupSound = null;
+
+        [Header("Effect Targets")]
+        [Tooltip("The target scriptable object(s) which the collectible will affect upon pickup.")]
+        [SerializeField] private ScriptableObject[] _effectTargets = null;
 
         #endregion
 
@@ -19,6 +26,12 @@ namespace Assets.Scripts.CollectibleSystem.CollectibleTypes
         /// </summary>
 
         public AudioClip PickupSound { get { return _pickupSound; } }
+
+        /// <summary>
+        /// The target scriptable object(s) which the collectible will affect upon pickup.
+        /// </summary>
+
+        public ScriptableObject[] EffectTargets { get { return _effectTargets; } }
 
         #endregion
 

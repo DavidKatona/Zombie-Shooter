@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Assets.Scripts.Audio;
+using UnityEngine;
 
 namespace Assets.Scripts.CharacterController
 {

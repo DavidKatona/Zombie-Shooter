@@ -860,6 +860,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _pickupSound: {fileID: 8300000, guid: 82e71dd3c93674d428c1ca9891525d11, type: 3}
+  _effectTargets:
+  - {fileID: 11400000, guid: 6f3caf6c8383b6f4e9c7c3a46974194e, type: 2}
 --- !u!1 &7851647358036705380
 GameObject:
   m_ObjectHideFlags: 0
