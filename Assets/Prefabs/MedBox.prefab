@@ -893,8 +893,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _pickupSound: {fileID: 8300000, guid: 58579f4678e474f4cac2049cf5ac8d1a, type: 3}
-  _effectTargets:
-  - {fileID: 11400000, guid: fb9f3d680cfe26e4ca6e3bb0a14ab613, type: 2}
+  _targetObject: {fileID: 11400000, guid: fb9f3d680cfe26e4ca6e3bb0a14ab613, type: 2}
+  _healthRestored: 25
 --- !u!1 &8336790774369294240
 GameObject:
   m_ObjectHideFlags: 0

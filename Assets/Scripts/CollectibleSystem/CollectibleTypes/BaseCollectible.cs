@@ -33,17 +33,15 @@ namespace Assets.Scripts.CollectibleSystem.CollectibleTypes
 
         public void Collect()
         {
-            Debug.Log($"{gameObject.name} of type {GetType().Name} has been collected.");
-            PlayPickupSound();
+            Debug.Log($"{gameObject.name} of type {GetType().Name} has been interacted with.");
             ApplyEffects();
-            Destroy(gameObject);
         }
 
         /// <summary>
         /// Plays the pickup sound that's defined for this or derived types.
         /// </summary>
 
-        private void PlayPickupSound()
+        protected void PlayPickupSound()
         {
             GameObject soundPlayerObject = new GameObject($"{GetType().Name}_pickup_sound");
             soundPlayerObject.transform.position = transform.position;
