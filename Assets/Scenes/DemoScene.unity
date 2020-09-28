@@ -2890,8 +2890,9 @@ MonoBehaviour:
   _healthObject: {fileID: 11400000, guid: fb9f3d680cfe26e4ca6e3bb0a14ab613, type: 2}
   _onDamagedAudioClips:
   - {fileID: 8300000, guid: 88212d15603516247816dbce7db48707, type: 3}
-  - {fileID: 8300000, guid: 8462428142dfaf844aaab583fe9e7189, type: 3}
-  - {fileID: 8300000, guid: 8bf7b6291eff6a140acffd0d2161511a, type: 3}
+  - {fileID: 8300000, guid: cc195ae8eb20e0342b6e9ec27ca339e9, type: 3}
+  - {fileID: 8300000, guid: 812f83c53df59654bbaf39e06a3562bc, type: 3}
+  - {fileID: 8300000, guid: 78ba881eba0e3234c97fc1d2af7cc757, type: 3}
 --- !u!1001 &1902438295
 PrefabInstance:
   m_ObjectHideFlags: 0

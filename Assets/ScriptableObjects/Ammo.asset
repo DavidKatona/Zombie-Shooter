@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 294062295ea87464b8c3e166e98406c4, type: 3}
   m_Name: Ammo
   m_EditorClassIdentifier: 
-  _initialValue: 3
+  _initialValue: 1
   _minimumValue: 0
   _maximumValue: 60
