@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Assets.Scripts.Extensions;
+using UnityEngine;
 
 namespace Assets.Scripts.CollectibleSystem.CollectibleTypes
 {
@@ -43,21 +44,8 @@ namespace Assets.Scripts.CollectibleSystem.CollectibleTypes
 
         protected void PlayPickupSound()
         {
-            GameObject soundPlayerObject = new GameObject($"{GetType().Name}_pickup_sound");
-            soundPlayerObject.transform.position = transform.position;
-
-            AudioSource audioSourceComponent = soundPlayerObject.AddComponent<AudioSource>();
-
-            audioSourceComponent.clip = PickupSound ?? null;
-
-            if (audioSourceComponent.clip != null)
-            {
-                audioSourceComponent.Play();
-            }
-
-            //Destroy the sound player object after the end of the clip.
-
-            Destroy(soundPlayerObject, audioSourceComponent.clip.length);
+            AudioSource audioSource = new AudioSource();
+            audioSource.InstantiateAudioSource(PickupSound, transform.position);
         }
 
         /// <summary>

@@ -7,10 +7,6 @@ namespace Assets.Scripts.Audio
     {
         #region EDITOR EXPOSED FIELDS
 
-        [Header("Audio Clips")]
-        [Tooltip("The audio clip that plays when the player's weapon is being fired.")]
-        [SerializeField] private AudioClip _shotSound;
-
         [Tooltip("The footstep audio clips that will be randomly played when the character moves")]
         [SerializeField] private AudioClip[] _footstepSounds;
 
@@ -29,16 +25,6 @@ namespace Assets.Scripts.Audio
         #endregion
 
         #region PROPERTIES
-
-        /// <summary>
-        /// The audio clip that plays when the player shoots.
-        /// </summary>
-
-        public AudioClip ShotSound
-        {
-            get { return _shotSound; }
-            private set { _shotSound = value; }
-        }
 
         /// <summary>
         /// The array of audio clips from which a random clip is picked when the character moves around and is grounded.
@@ -91,16 +77,6 @@ namespace Assets.Scripts.Audio
         #endregion
 
         #region METHODS
-
-        public void PlayShootingSound()
-        {
-            if (CachedAudioSource.clip != ShotSound)
-            {
-                CachedAudioSource.clip = ShotSound;
-            }
-
-            //CachedAudioSource.Play();
-        }
 
         public void PlayFootstepAudio()
         {

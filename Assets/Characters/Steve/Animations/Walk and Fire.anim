@@ -30375,7 +30375,15 @@ AnimationClip:
   m_HasMotionFloatCurves: 0
   m_Events:
   - time: 0.06666667
-    functionName: PlayShootingSound
+    functionName: PlayShootingEffects
+    data: 
+    objectReferenceParameter: {fileID: 8300000, guid: 6b6425c25969c0e439916bec0a5c4957,
+      type: 3}
+    floatParameter: 0
+    intParameter: 0
+    messageOptions: 0
+  - time: 0.1
+    functionName: DecrementAmmo
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0

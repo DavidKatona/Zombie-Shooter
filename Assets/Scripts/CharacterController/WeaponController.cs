@@ -1,4 +1,5 @@
-﻿using Assets.Scripts.ScriptableObjects;
+﻿using Assets.Scripts.Extensions;
+using Assets.Scripts.ScriptableObjects;
 using UnityEngine;
 
 namespace Assets.Scripts.CharacterController
@@ -84,24 +85,34 @@ namespace Assets.Scripts.CharacterController
             if (!_isFirePressed || CachedAnimator.GetBool("IsGunHolstered"))
                 return;
 
-            if (AmmoObject.RuntimeValue > 0)
-            {
-                // Notify the animator to start the "Firing" animation.
+            // Notify the animator to start the "Firing" animation.
 
-                CachedAnimator.SetTrigger("Fire");
+            CachedAnimator.SetTrigger("Fire");
+        }
 
-                // Play the firing sound effect.
+        /// <summary>
+        /// Generates shooting effects. Declared for use in animation events only.
+        /// </summary>
 
-                InstantiateSoundEffect(WeaponShotClip, transform.position);
+        private void PlayShootingEffects()
+        {
+            // Sound effects.
 
-                // Decrement ammunition after firing.
+            var clipToPlay = AmmoObject.RuntimeValue > 0 ? WeaponShotClip : WeaponTriggerClip;
+            AudioSource audioSource = new AudioSource();
+            audioSource.InstantiateAudioSource(clipToPlay, transform.position);
+        }
 
-                AmmoObject.RuntimeValue--;
-            }
-            else if (!CachedAnimator.GetBool("IsGunHolstered"))
-            {
-                InstantiateSoundEffect(WeaponTriggerClip, transform.position);
-            }
+        /// <summary>
+        /// Decreses the amount of ammunition supplied for the weapon. Called from animation events.
+        /// </summary>
+
+        private void DecrementAmmo()
+        {
+            if (AmmoObject.RuntimeValue <= 0)
+                return;
+
+            AmmoObject.RuntimeValue--;
         }
 
         private void Reload()
@@ -120,25 +131,6 @@ namespace Assets.Scripts.CharacterController
             {
                 CachedAnimator.SetBool("IsGunHolstered", !CachedAnimator.GetBool("IsGunHolstered"));
             }
-        }
-
-        private void InstantiateSoundEffect(AudioClip clipToInstantiate, Vector3 position)
-        {
-            GameObject soundPlayerObject = new GameObject("Shooting_sound_object");
-            soundPlayerObject.transform.position = position;
-
-            AudioSource audioSourceComponent = soundPlayerObject.AddComponent<AudioSource>();
-
-            audioSourceComponent.clip = clipToInstantiate ?? null;
-
-            if (audioSourceComponent.clip != null)
-            {
-                audioSourceComponent.Play();
-            }
-
-            //Destroy the sound player object after the end of the clip.
-
-            Destroy(soundPlayerObject, audioSourceComponent.clip.length);
         }
 
         #endregion

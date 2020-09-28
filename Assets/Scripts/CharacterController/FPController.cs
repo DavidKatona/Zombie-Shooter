@@ -16,12 +16,6 @@ namespace Assets.Scripts.CharacterController
         [SerializeField] private float _maximumCameraPitch = 90f;
         [SerializeField] private float _minimumCameraPitch = -90f;
 
-        [Header("Scriptable Components")]
-        [Tooltip("The scriptable object that holds information about the character's health.")]
-        [SerializeField] private IntVariable _healthObject = null;
-        [Tooltip("The scriptable object that holds information about the character's ammunition.")]
-        [SerializeField] private IntVariable _ammoObject = null;
-
         #endregion
 
         #region FIELDS
@@ -85,20 +79,6 @@ namespace Assets.Scripts.CharacterController
             get { return _minimumCameraPitch; }
             set { _minimumCameraPitch = value; }
         }
-
-        /// <summary>
-        /// The "Health" scriptable object that's attached to this game object.
-        /// NOTE: read-only. Should only be set from the editor.
-        /// </summary>
-
-        public IntVariable HealthObject { get { return _healthObject; } }
-
-        /// <summary>
-        /// The "Ammo" scriptable object that's atached to this game object.
-        /// NOTE: read-only. Should only be set from the editor.
-        /// </summary>
-
-        public IntVariable AmmoObject { get { return _ammoObject; } }
 
         public Quaternion CameraRotation
         {
