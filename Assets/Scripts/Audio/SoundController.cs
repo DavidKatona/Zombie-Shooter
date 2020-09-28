@@ -99,7 +99,7 @@ namespace Assets.Scripts.Audio
                 CachedAudioSource.clip = ShotSound;
             }
 
-            CachedAudioSource.Play();
+            //CachedAudioSource.Play();
         }
 
         public void PlayFootstepAudio()

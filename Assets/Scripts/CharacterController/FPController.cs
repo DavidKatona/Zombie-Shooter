@@ -16,16 +16,28 @@ namespace Assets.Scripts.CharacterController
         [SerializeField] private float _maximumCameraPitch = 90f;
         [SerializeField] private float _minimumCameraPitch = -90f;
 
+        [Header("Scriptable Components")]
+        [Tooltip("The scriptable object that holds information about the character's health.")]
+        [SerializeField] private IntVariable _healthObject = null;
+        [Tooltip("The scriptable object that holds information about the character's ammunition.")]
+        [SerializeField] private IntVariable _ammoObject = null;
+
         #endregion
 
         #region FIELDS
+
+        // Input specific fields.
+
+        private bool _isJumpPressed;
+        private bool _isWalkingInvoked;
+
+        // Movement related modifiers.
 
         private float _xAxisInputModifier;
         private float _zAxisInputModifier;
         private float _xAxisRotation;
         private float _yAxisRotation;
-        private bool _isJumpPressed;
-        private bool _isWalkingInvoked;
+
         private bool _wasGrounded = true;
         private Quaternion _cameraRotation;
         private Quaternion _characterRotation;
@@ -73,6 +85,20 @@ namespace Assets.Scripts.CharacterController
             get { return _minimumCameraPitch; }
             set { _minimumCameraPitch = value; }
         }
+
+        /// <summary>
+        /// The "Health" scriptable object that's attached to this game object.
+        /// NOTE: read-only. Should only be set from the editor.
+        /// </summary>
+
+        public IntVariable HealthObject { get { return _healthObject; } }
+
+        /// <summary>
+        /// The "Ammo" scriptable object that's atached to this game object.
+        /// NOTE: read-only. Should only be set from the editor.
+        /// </summary>
+
+        public IntVariable AmmoObject { get { return _ammoObject; } }
 
         public Quaternion CameraRotation
         {
@@ -126,23 +152,8 @@ namespace Assets.Scripts.CharacterController
 
         #region METHODS
 
-        private void HandleAnimations()
+        private void HandleInteractions()
         {
-            if (Input.GetButtonDown("Fire1"))
-            {
-                CachedAnimator.SetTrigger("Fire");
-            }
-
-            if (Input.GetButtonDown("Reload"))
-            {
-                CachedAnimator.SetTrigger("Reload");
-            }
-
-            if (Input.GetKeyDown(KeyCode.F))
-            {
-                CachedAnimator.SetBool("IsGunHolstered", !CachedAnimator.GetBool("IsGunHolstered"));
-            }
-
             if (_xAxisInputModifier != 0 || _zAxisInputModifier != 0)
             {
                 if (!CachedAnimator.GetBool("IsWalking") && IsGrounded())
@@ -245,7 +256,7 @@ namespace Assets.Scripts.CharacterController
             _yAxisRotation = Input.GetAxis("Mouse X") * MouseSensitivity;
             _xAxisRotation = Input.GetAxis("Mouse Y") * MouseSensitivity;
 
-            HandleAnimations();
+            HandleInteractions();
         }
 
         private void FixedUpdate()

@@ -1941,6 +1941,22 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 3be44f8ee8a88445d9d23221fabacd32, type: 3}
   _jumpSound: {fileID: 8300000, guid: 286d21c70c6da45ca8f00254cd221c81, type: 3}
   _landingSound: {fileID: 8300000, guid: 4684cd292999946fbb09865cdec50596, type: 3}
+--- !u!114 &688966775
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 688966770}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cd56cde23673ec542b89827b1ff079c6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _ammoObject: {fileID: 11400000, guid: 6f3caf6c8383b6f4e9c7c3a46974194e, type: 2}
+  _ammoDepletedPerShot: 1
+  _weaponShotClip: {fileID: 8300000, guid: 6b6425c25969c0e439916bec0a5c4957, type: 3}
+  _weaponTriggerClip: {fileID: 8300000, guid: 3c81ff4294e8db24880e923aaa18b6c7, type: 3}
 --- !u!1 &870670325
 GameObject:
   m_ObjectHideFlags: 0
