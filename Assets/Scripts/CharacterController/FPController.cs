@@ -16,12 +16,6 @@ namespace Assets.Scripts.CharacterController
         [SerializeField] private float _maximumCameraPitch = 90f;
         [SerializeField] private float _minimumCameraPitch = -90f;
 
-        [Header("Scriptable Components")]
-        [Tooltip("The scriptable object that holds information about the character's health.")]
-        [SerializeField] private IntVariable _healthObject = null;
-        [Tooltip("The scriptable object that holds information about the character's ammunition.")]
-        [SerializeField] private IntVariable _ammoObject = null;
-
         #endregion
 
         #region FIELDS
