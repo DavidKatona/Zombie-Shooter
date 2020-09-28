@@ -5,7 +5,7 @@ namespace Assets.Scripts.Extensions
     public static class AudioSourceExtensions
     {
         /// <summary>
-        /// Instantiates an object at position (0, 0, 0) with an AudioSource component attached to it and plays the passed clip upon instantiation.
+        /// Instantiates an object at world cooridnates (0, 0, 0) with an AudioSource component attached to it and plays the passed clip upon instantiation.
         /// </summary>
         /// <param name="audioSource"></param>
         /// <param name="clipToPlay">The clip that will be played by the AudioSource.</param>

@@ -1,5 +1,4 @@
 ﻿using Assets.Scripts.Audio;
-using Assets.Scripts.ScriptableObjects;
 using UnityEngine;
 
 namespace Assets.Scripts.CharacterController

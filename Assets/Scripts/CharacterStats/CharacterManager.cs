@@ -1,6 +1,6 @@
 ﻿using Assets.Scripts.ScriptableObjects;
-using Assets.Scripts.Damageables.Common;
 using Assets.Scripts.Extensions;
+using Assets.Scripts.Damageables.Common;
 using UnityEngine;
 
 namespace Assets.Scripts.CharacterStats
