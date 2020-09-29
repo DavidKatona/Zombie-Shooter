@@ -2893,6 +2893,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: cc195ae8eb20e0342b6e9ec27ca339e9, type: 3}
   - {fileID: 8300000, guid: 812f83c53df59654bbaf39e06a3562bc, type: 3}
   - {fileID: 8300000, guid: 78ba881eba0e3234c97fc1d2af7cc757, type: 3}
+  _onDeathAudioClip: {fileID: 8300000, guid: 3845c6d3e43e56a43a39352b5abaf531, type: 3}
 --- !u!1001 &1902438295
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -17,6 +17,9 @@ namespace Assets.Scripts.CharacterStats
         [Tooltip("The audio clip that plays when the character takes damage.")]
         [SerializeField] private AudioClip[] _onDamagedAudioClips = null;
 
+        [Tooltip("The aduio clip that plays when the character dies.")]
+        [SerializeField] private AudioClip _onDeathAudioClip = null;
+
         #endregion
 
         #region PROPERTIES
@@ -34,6 +37,12 @@ namespace Assets.Scripts.CharacterStats
 
         public AudioClip[] OnDamagedAudioClips { get { return _onDamagedAudioClips; } }
 
+        /// <summary>
+        /// The audio clip that plays when the character dies.
+        /// </summary>
+
+        public AudioClip OnDeathAudioClip { get { return _onDeathAudioClip; } }
+
         #endregion
 
         #region METHODS
@@ -50,15 +59,33 @@ namespace Assets.Scripts.CharacterStats
 
             if (HealthObject.RuntimeValue > 0)
             {
+                // Lower health.
+
+                HealthObject.RuntimeValue -= amount;
+
+                if (HealthObject.RuntimeValue <= 0)
+                {
+                    Die();
+                    return;
+                }
+
                 // Play sound effect.
 
                 AudioSource audioSource = new AudioSource();
                 audioSource.InstantiateAudioSource(GetRandomAudioClip(OnDamagedAudioClips), transform.position);
-
-                // Lower health.
-
-                HealthObject.RuntimeValue -= amount;
             }
+        }
+
+        private void Die()
+        {
+            // Print to console.
+
+            Debug.Log($"The character died (health: {HealthObject.RuntimeValue}).");
+
+            // Play sound effect.
+
+            AudioSource audioSource = new AudioSource();
+            audioSource.InstantiateAudioSource(OnDeathAudioClip, transform.position);
         }
 
         private AudioClip GetRandomAudioClip(AudioClip[] audioClips)
