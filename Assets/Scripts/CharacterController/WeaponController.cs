@@ -140,17 +140,10 @@ namespace Assets.Scripts.CharacterController
                 // Reloading logic.
 
                 var amountOfAmmoToReload = AmmoClipObject.MaximumValue - AmmoClipObject.RuntimeValue;
-                
-                if (AmmoObject.RuntimeValue >= amountOfAmmoToReload)
-                {
-                    AmmoObject.RuntimeValue -= amountOfAmmoToReload;
-                    AmmoClipObject.RuntimeValue += amountOfAmmoToReload;
-                }
-                else
-                {
-                    AmmoClipObject.RuntimeValue += AmmoObject.RuntimeValue;
-                    AmmoObject.RuntimeValue = 0;
-                }
+                var amountOfAmmoAvailable = amountOfAmmoToReload < AmmoObject.RuntimeValue ? amountOfAmmoToReload : AmmoObject.RuntimeValue;
+
+                AmmoObject.RuntimeValue -= amountOfAmmoAvailable;
+                AmmoClipObject.RuntimeValue += amountOfAmmoAvailable;
             }
         }
 
