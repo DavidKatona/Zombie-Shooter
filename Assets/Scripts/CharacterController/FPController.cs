@@ -223,28 +223,9 @@ namespace Assets.Scripts.CharacterController
             {
                 _isJumpPressed = true;
             }
-            else if (_wasGrounded && !isGrounded)
-            {
-                _lastGroundedPosition = transform.position;
-            }
             else if (!_wasGrounded && isGrounded)
             {
-                Vector3 fallVector = transform.position - _lastGroundedPosition;
-
-                if (fallVector.y < 0)
-                {
-                    Debug.DrawLine(transform.position, _lastGroundedPosition, Color.red, 5.0f);
-
-                    var distanceFallen = fallVector.y;
-
-                    Debug.Log($"The vector that represents your falling is: ({fallVector}).");
-                    Debug.Log($"The distance you have fallen on the Y axis is: {distanceFallen}.");
-
-                    if (distanceFallen < -2f)
-                    {
-                        CachedSoundController.PlayLandingSound();
-                    }
-                }
+                CachedSoundController.PlayLandingSound();
             }
 
             _wasGrounded = isGrounded;
