@@ -25,6 +25,9 @@ namespace Assets.Scripts.CharacterController
         [Tooltip("The audio clip that should play when the weapon is fired without ammunition.")]
         [SerializeField] private AudioClip _weaponTriggerClip = null;
 
+        [Tooltip("The audio clip that should play when the weapon is reloaded.")]
+        [SerializeField] private AudioClip _weaponReloadClip = null;
+
         #endregion
 
         #region FIELDS
@@ -69,6 +72,12 @@ namespace Assets.Scripts.CharacterController
         /// 
 
         public AudioClip WeaponTriggerClip { get { return _weaponTriggerClip; } }
+
+        /// <summary>
+        /// The audio clip that's played when the weapon is reloaded.
+        /// </summary>
+
+        public AudioClip WeaponReloadClip { get { return _weaponReloadClip; } }
 
         /// <summary>
         /// Cached animator component attached to the GameObject or one of its children.
@@ -132,6 +141,11 @@ namespace Assets.Scripts.CharacterController
 
                 if (AmmoObject.RuntimeValue <= 0 || AmmoClipObject.RuntimeValue == AmmoClipObject.MaximumValue)
                     return;
+
+                // Play reloading sound effect.
+
+                AudioSource audioSource = new AudioSource();
+                audioSource.InstantiateAudioSource(WeaponReloadClip, transform.position);
 
                 // Notify animator to play animation.
 
