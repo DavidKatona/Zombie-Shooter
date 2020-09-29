@@ -12,6 +12,9 @@ namespace Assets.Scripts.CharacterController
         [Tooltip("The scriptable object that holds information about the character's ammunition.")]
         [SerializeField] private IntVariable _ammoObject = null;
 
+        [Tooltip("The scriptable object that holds information about the ammunition loaded into the weapon.")]
+        [SerializeField] private IntVariable _ammoClipObject = null;
+
         [Header("Options")]
         [Tooltip("The amount of ammunition the weapon uses per shot.")]
         [SerializeField] private int _ammoDepletedPerShot = 1;
@@ -41,6 +44,12 @@ namespace Assets.Scripts.CharacterController
         /// </summary>
 
         public IntVariable AmmoObject { get { return _ammoObject; } }
+
+        /// <summary>
+        /// The scriptable object that holds information about the ammunition loaded into the weapon and its value is decremented each time the weapon is fired.
+        /// </summary>
+
+        public IntVariable AmmoClipObject { get { return _ammoClipObject; } }
 
         /// <summary>
         /// The amount of ammunition depleted when this weapon is fired (ammo/shot).
@@ -98,7 +107,7 @@ namespace Assets.Scripts.CharacterController
         {
             // Sound effects.
 
-            var clipToPlay = AmmoObject.RuntimeValue > 0 ? WeaponShotClip : WeaponTriggerClip;
+            var clipToPlay = AmmoClipObject.RuntimeValue > 0 ? WeaponShotClip : WeaponTriggerClip;
             AudioSource audioSource = new AudioSource();
             audioSource.InstantiateAudioSource(clipToPlay, transform.position);
         }
@@ -109,19 +118,39 @@ namespace Assets.Scripts.CharacterController
 
         private void DecrementAmmo()
         {
-            if (AmmoObject.RuntimeValue <= 0)
+            if (AmmoClipObject.RuntimeValue <= 0)
                 return;
 
-            AmmoObject.RuntimeValue--;
+            AmmoClipObject.RuntimeValue--;
         }
 
         private void Reload()
         {
             if (_isReloadPressed && !CachedAnimator.GetBool("IsGunHolstered"))
             {
-                // ToDo: Add further reloading logic.
+                // If ammo pool is empty or clip is full, cancel reloading.
+
+                if (AmmoObject.RuntimeValue <= 0 || AmmoClipObject.RuntimeValue == AmmoClipObject.MaximumValue)
+                    return;
+
+                // Notify animator to play animation.
 
                 CachedAnimator.SetTrigger("Reload");
+
+                // Reloading logic.
+
+                var amountOfAmmoToReload = AmmoClipObject.MaximumValue - AmmoClipObject.RuntimeValue;
+                
+                if (AmmoObject.RuntimeValue >= amountOfAmmoToReload)
+                {
+                    AmmoObject.RuntimeValue -= amountOfAmmoToReload;
+                    AmmoClipObject.RuntimeValue += amountOfAmmoToReload;
+                }
+                else
+                {
+                    AmmoClipObject.RuntimeValue += AmmoObject.RuntimeValue;
+                    AmmoObject.RuntimeValue = 0;
+                }
             }
         }
 

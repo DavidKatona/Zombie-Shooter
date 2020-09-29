@@ -1573,6 +1573,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _ammoObject: {fileID: 11400000, guid: 6f3caf6c8383b6f4e9c7c3a46974194e, type: 2}
+  _ammoClipObject: {fileID: 11400000, guid: e8a3618d89f1ead4fbe78f101f69011a, type: 2}
   _ammoDepletedPerShot: 1
   _weaponShotClip: {fileID: 8300000, guid: 6b6425c25969c0e439916bec0a5c4957, type: 3}
   _weaponTriggerClip: {fileID: 8300000, guid: 3c81ff4294e8db24880e923aaa18b6c7, type: 3}
@@ -1678,22 +1679,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 620012380097419231, guid: 2284fb370519d4434ad0ce0946f96aa7,
-        type: 3}
-      propertyPath: _ammoRestored
-      value: 20
-      objectReference: {fileID: 0}
-    - target: {fileID: 620012380097419231, guid: 2284fb370519d4434ad0ce0946f96aa7,
-        type: 3}
-      propertyPath: _pickupSound
-      value: 
-      objectReference: {fileID: 8300000, guid: 82e71dd3c93674d428c1ca9891525d11, type: 3}
-    - target: {fileID: 620012380097419231, guid: 2284fb370519d4434ad0ce0946f96aa7,
-        type: 3}
-      propertyPath: _targetObject
-      value: 
-      objectReference: {fileID: 11400000, guid: 6f3caf6c8383b6f4e9c7c3a46974194e,
-        type: 2}
     - target: {fileID: 2322193785830790057, guid: 2284fb370519d4434ad0ce0946f96aa7,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -2117,22 +2102,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 620012380097419231, guid: 2284fb370519d4434ad0ce0946f96aa7,
-        type: 3}
-      propertyPath: _ammoRestored
-      value: 20
-      objectReference: {fileID: 0}
-    - target: {fileID: 620012380097419231, guid: 2284fb370519d4434ad0ce0946f96aa7,
-        type: 3}
-      propertyPath: _pickupSound
-      value: 
-      objectReference: {fileID: 8300000, guid: 82e71dd3c93674d428c1ca9891525d11, type: 3}
-    - target: {fileID: 620012380097419231, guid: 2284fb370519d4434ad0ce0946f96aa7,
-        type: 3}
-      propertyPath: _targetObject
-      value: 
-      objectReference: {fileID: 11400000, guid: 6f3caf6c8383b6f4e9c7c3a46974194e,
-        type: 2}
     - target: {fileID: 2322193785830790057, guid: 2284fb370519d4434ad0ce0946f96aa7,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -2475,22 +2444,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 620012380097419231, guid: 2284fb370519d4434ad0ce0946f96aa7,
-        type: 3}
-      propertyPath: _ammoRestored
-      value: 20
-      objectReference: {fileID: 0}
-    - target: {fileID: 620012380097419231, guid: 2284fb370519d4434ad0ce0946f96aa7,
-        type: 3}
-      propertyPath: _pickupSound
-      value: 
-      objectReference: {fileID: 8300000, guid: 82e71dd3c93674d428c1ca9891525d11, type: 3}
-    - target: {fileID: 620012380097419231, guid: 2284fb370519d4434ad0ce0946f96aa7,
-        type: 3}
-      propertyPath: _targetObject
-      value: 
-      objectReference: {fileID: 11400000, guid: 6f3caf6c8383b6f4e9c7c3a46974194e,
-        type: 2}
     - target: {fileID: 2322193785830790057, guid: 2284fb370519d4434ad0ce0946f96aa7,
         type: 3}
       propertyPath: m_LocalPosition.x
