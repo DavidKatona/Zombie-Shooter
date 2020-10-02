@@ -10899,6 +10899,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 430401960411222128, guid: b24e7f48e76353041afae71be60323fb,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -0.071
+      objectReference: {fileID: 0}
     - target: {fileID: 3151432834042377382, guid: b24e7f48e76353041afae71be60323fb,
         type: 3}
       propertyPath: _mouseSensitivity
