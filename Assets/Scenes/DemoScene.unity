@@ -321,6 +321,7 @@ GameObject:
   - component: {fileID: 289844485}
   - component: {fileID: 289844484}
   - component: {fileID: 289844483}
+  - component: {fileID: 289844486}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -394,6 +395,18 @@ Transform:
   m_Father: {fileID: 1885552654}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &289844486
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 289844482}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 000ad6b7b49805942ba152a46e1385d6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &312249575 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4066943484899438548, guid: c356d39725bcc4ec0925ab50a3cf6a42,
@@ -2686,7 +2699,6 @@ GameObject:
   - component: {fileID: 1885552655}
   - component: {fileID: 1885552659}
   - component: {fileID: 1885552656}
-  - component: {fileID: 1885552657}
   - component: {fileID: 1885552658}
   m_Layer: 0
   m_Name: FPCharacter
@@ -2805,18 +2817,6 @@ MonoBehaviour:
   _mouseSensitivity: 5
   _maximumCameraPitch: 80
   _minimumCameraPitch: -80
---- !u!114 &1885552657
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1885552650}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 000ad6b7b49805942ba152a46e1385d6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &1885552658
 MonoBehaviour:
   m_ObjectHideFlags: 0
