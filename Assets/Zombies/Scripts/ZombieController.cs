@@ -191,7 +191,7 @@ public class ZombieController : MonoBehaviour
         // If within attack range, transition to attack state.
 
         Debug.Log($"Distance to target: {CachedNavMeshAgent.remainingDistance} | Stopping distance: {CachedNavMeshAgent.stoppingDistance}");
-        Debug.DrawLine(CachedTransform.position, AgentTarget.transform.position);
+        Debug.DrawLine(CachedTransform.position, AgentTarget.transform.position, Color.red);
 
         if (CachedNavMeshAgent.remainingDistance <= CachedNavMeshAgent.stoppingDistance && !CachedNavMeshAgent.pathPending)
         {
