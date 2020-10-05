@@ -1,8 +1,17 @@
-﻿using System.Runtime.CompilerServices;
-using UnityEngine;
+﻿using UnityEngine;
+using UnityEngine.AI;
 
+[RequireComponent(typeof(NavMeshAgent))]
 public class ZombieController : MonoBehaviour
 {
+    #region EDITOR EXPOSED FIELDS
+
+    [Header("Agent Settings")]
+    [Tooltip("The target game object that the attached Nav Mesh Agent component will follow.")]
+    [SerializeField] private GameObject _agentTarget;
+
+    #endregion
+
     #region FIELDS
 
     private bool _isWalkingPressed;
@@ -15,6 +24,14 @@ public class ZombieController : MonoBehaviour
     #region PROPERTIES
 
     public Animator CachedAnimator { get; private set; }
+
+    public NavMeshAgent CachedNavMeshAgent { get; private set; }
+
+    public GameObject AgentTarget
+    {
+        get { return _agentTarget; }
+        private set { _agentTarget = value; }
+    }
 
     public bool IsWalkingPressed
     {
@@ -78,12 +95,24 @@ public class ZombieController : MonoBehaviour
 
     private void Awake()
     {
+        CachedNavMeshAgent = GetComponent<NavMeshAgent>();
         CachedAnimator = GetComponent<Animator>();
     }
 
     private void Update()
     {
-        ReadInput();
+        CachedNavMeshAgent.SetDestination(AgentTarget.transform.position);
+
+        if (CachedNavMeshAgent.remainingDistance > CachedNavMeshAgent.stoppingDistance)
+        {
+            CachedAnimator.SetBool("IsWalking", true);
+            CachedAnimator.SetBool("IsAttacking", false);
+        }
+        else
+        {
+            CachedAnimator.SetBool("IsWalking", false);
+            CachedAnimator.SetBool("IsAttacking", true);
+        }
     }
 
     #endregion
