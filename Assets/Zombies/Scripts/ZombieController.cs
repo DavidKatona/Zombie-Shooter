@@ -44,6 +44,12 @@ public class ZombieController : MonoBehaviour
     #region PROPERTIES
 
     /// <summary>
+    /// The cached transform component attached to this game object.
+    /// </summary>
+
+    public Transform CachedTransform { get; set; }
+
+    /// <summary>
     /// The cached animator component attached to this game object.
     /// </summary>
 
@@ -135,6 +141,7 @@ public class ZombieController : MonoBehaviour
                 Attack();
                 break;
             case ZombieState.Dead:
+                Die();
                 break;
         }
     }
@@ -153,8 +160,8 @@ public class ZombieController : MonoBehaviour
 
         // Generate a new target destination for the nav mesh agent to use.
 
-        float newX = transform.position.x + Random.Range(MinimumWanderDistance, MaximumWanderDistance);
-        float newZ = transform.position.z + Random.Range(MinimumWanderDistance, MaximumWanderDistance);
+        float newX = CachedTransform.position.x + Random.Range(MinimumWanderDistance, MaximumWanderDistance);
+        float newZ = CachedTransform.position.z + Random.Range(MinimumWanderDistance, MaximumWanderDistance);
         float newY = Terrain.activeTerrain.SampleHeight(new Vector3(newX, 0, newZ));
         Vector3 targetDestination = new Vector3(newX, newY, newZ);
 
@@ -183,11 +190,11 @@ public class ZombieController : MonoBehaviour
 
         // If within attack range, transition to attack state.
 
-        Debug.Log($"Distance to target: {DistanceToPlayer()} | Stopping distance: {AttackRange}");
+        Debug.Log($"Distance to target: {CachedNavMeshAgent.remainingDistance} | Stopping distance: {CachedNavMeshAgent.stoppingDistance}");
+        Debug.DrawLine(CachedTransform.position, AgentTarget.transform.position);
 
-        if (DistanceToPlayer() <= AttackRange)
+        if (CachedNavMeshAgent.remainingDistance <= CachedNavMeshAgent.stoppingDistance && !CachedNavMeshAgent.pathPending)
         {
-
             SwitchState(ZombieState.Attack);
         }
     }
@@ -274,6 +281,7 @@ public class ZombieController : MonoBehaviour
     {
         // Cache and initialize components.
 
+        CachedTransform = GetComponent<Transform>();
         CachedNavMeshAgent = GetComponent<NavMeshAgent>();
         CachedAnimator = GetComponent<Animator>();
         CachedAnimatorControllerParameters = CachedAnimator.parameters;
