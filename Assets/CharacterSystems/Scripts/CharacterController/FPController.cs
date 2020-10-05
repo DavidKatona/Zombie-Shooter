@@ -257,7 +257,12 @@ namespace Assets.Scripts.CharacterController
                 }
             }
 
-            CachedTransform.position += (CachedTransform.forward * _zAxisInputModifier * Speed + CachedTransform.right * _xAxisInputModifier * Speed);
+            // Compute the where we would like to move and limit our resulting vector's magnitude to our speed, so walking diagonally doesn't cause faster movement.
+
+            var forwardMomentum = CachedTransform.forward * _zAxisInputModifier * Speed;
+            var rightMomentum = CachedTransform.right * _xAxisInputModifier * Speed;
+            var desiredMomentum = Vector3.ClampMagnitude(forwardMomentum + rightMomentum, Speed);
+            CachedTransform.position += desiredMomentum;
 
             CharacterRotation *= Quaternion.Euler(0, _yAxisRotation, 0);
             CachedTransform.localRotation = CharacterRotation;
