@@ -129,7 +129,7 @@ public class ZombieController : MonoBehaviour
         switch (State)
         {
             case ZombieState.Idle:
-                SwitchState(ZombieState.Wander);
+                Idle();
                 break;
             case ZombieState.Wander:
                 Wander();
@@ -143,6 +143,20 @@ public class ZombieController : MonoBehaviour
             case ZombieState.Dead:
                 Die();
                 break;
+        }
+    }
+
+    private void Idle()
+    {
+        // Switch to chase if the player is within aggro distance.
+
+        if (CanSeePlayer())
+        {
+            SwitchState(ZombieState.Chase);
+        }
+        else
+        {
+            SwitchState(ZombieState.Wander);
         }
     }
 
@@ -201,7 +215,20 @@ public class ZombieController : MonoBehaviour
 
     private void Attack()
     {
+        // Rotate this game object to face its target.
 
+        Vector3 targetPosition = new Vector3(AgentTarget.transform.position.x, CachedTransform.position.y, AgentTarget.transform.position.z);
+        CachedTransform.LookAt(targetPosition);
+
+        // Reset all animator parameters and notify the animator to start the walking animaton.
+
+        ResetAnimatorParameters(CachedAnimatorControllerParameters);
+        CachedAnimator.SetBool("IsAttacking", true);
+
+        if (DistanceToPlayer() > CachedNavMeshAgent.stoppingDistance)
+        {
+            SwitchState(ZombieState.Chase);
+        }
     }
 
     private void Die()
