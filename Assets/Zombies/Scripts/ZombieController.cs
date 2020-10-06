@@ -278,6 +278,19 @@ public class ZombieController : MonoBehaviour
     }
 
     /// <summary>
+    /// A helper function that dynamically finds the player should these objects be instantiated from a prefab and their target has not been
+    /// defined manually in the inspector.
+    /// </summary>
+
+    private void RegisterTarget()
+    {
+        if (AgentTarget == null)
+        {
+            AgentTarget = GameObject.FindGameObjectWithTag("Player");
+        }
+    }
+
+    /// <summary>
     /// Determine the distance between this game object and a target.
     /// </summary>
     /// <param name="target"></param>
@@ -363,6 +376,8 @@ public class ZombieController : MonoBehaviour
         CachedNavMeshAgent = GetComponent<NavMeshAgent>();
         CachedAnimator = GetComponent<Animator>();
         CachedAnimatorControllerParameters = CachedAnimator.parameters;
+
+        RegisterTarget();
     }
 
     private void Update()

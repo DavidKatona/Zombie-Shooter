@@ -110,7 +110,7 @@ GameObject:
   - component: {fileID: 3151432834042377380}
   m_Layer: 0
   m_Name: FPCharacter
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -241,8 +241,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9146c2b8f2830ed49a20da5292361158, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _speed: 0.09
-  _mouseSensitivity: 8
+  _speed: 0.1
+  _mouseSensitivity: 2
   _maximumCameraPitch: 80
   _minimumCameraPitch: -80
 --- !u!114 &3151432834042377380
