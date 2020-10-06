@@ -321,5 +321,14 @@ public class ZombieController : MonoBehaviour
         HandleStates();
     }
 
+    private void OnDrawGizmosSelected()
+    {
+        Gizmos.color = Color.yellow;
+        Gizmos.DrawWireSphere(transform.position, AggroDistance);
+
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(transform.position, AttackRange);
+    }
+
     #endregion
 }
