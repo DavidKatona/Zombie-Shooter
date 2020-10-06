@@ -11,13 +11,25 @@ public class ZombieController : MonoBehaviour
     [Tooltip("The target game object that the attached Nav Mesh Agent component will follow.")]
     [SerializeField] private GameObject _agentTarget;
 
+    [Tooltip("How far the agent is allowed to wander away from its previous destination.")]
+    [SerializeField] private float _minimumWanderDistance = -5f;
+
+    [Tooltip("How far the agent is allowed to wander away from its previous destination.")]
+    [SerializeField] private float _maximumWanderDistance = 5f;
+
+    [Header("Zombie Behaviour")]
+    [Space(10)]
     [Tooltip("How close the player has to be (in units) to this game object, in order to get its attention.")]
     [Range(0, 100)]
     [SerializeField] private float _aggroDistance = 10f;
 
+    [Tooltip("How close the target has to be (in units) to this game object, so it will keep chasing it around the map.")]
+    [Range(0, 1000)]
+    [SerializeField] private float _chaseDistance = 30f;
+
     [Tooltip("How close to the player this unit has to be in order to attack.")]
     [Range(0, 100)]
-    [SerializeField] private float _attackRange = 2.5f;
+    [SerializeField] private float _attackRange = 2f;
 
     [Tooltip("The out of combat, wandering speed this unit moves with.")]
     [Range(0, 10)]
@@ -27,11 +39,6 @@ public class ZombieController : MonoBehaviour
     [Range(0, 10)]
     [SerializeField] private float _chaseSpeed = 2f;
 
-    [Tooltip("How far the agent is allowed to wander away from its previous destination.")]
-    [SerializeField] private float _minimumWanderDistance = -5f;
-
-    [Tooltip("How far the agent is allowed to wander away from its previous destination.")]
-    [SerializeField] private float _maximumWanderDistance = 5f;
 
     #endregion
 
@@ -90,6 +97,26 @@ public class ZombieController : MonoBehaviour
     public float AggroDistance { get { return _aggroDistance; } }
 
     /// <summary>
+    /// How far the agent is allowed to wander away from its previous destination when setting a new one.
+    /// </summary>
+
+    public float MinimumWanderDistance { get { return _minimumWanderDistance; } }
+
+
+    /// <summary>
+    /// How far the agent is allowed to wander away from its previous destination when setting a new one.
+    /// </summary>
+
+    public float MaximumWanderDistance { get { return _maximumWanderDistance; } }
+
+    /// <summary>
+    /// How close the target has to be (in units) to this game object, so it will keep chasing it around the map.
+    /// Note: The chase will be abandoned if the target gets outside of this range.
+    /// </summary>
+
+    public float ChaseDistance { get { return _chaseDistance; } }
+
+    /// <summary>
     /// How close to the player this unit has to be in order to attack.
     /// </summary>
 
@@ -106,19 +133,6 @@ public class ZombieController : MonoBehaviour
     /// </summary>
 
     public float ChaseSpeed { get { return _chaseSpeed; } }
-
-    /// <summary>
-    /// How far the agent is allowed to wander away from its previous destination when setting a new one.
-    /// </summary>
-
-    public float MinimumWanderDistance { get { return _minimumWanderDistance; } }
-
-
-    /// <summary>
-    /// How far the agent is allowed to wander away from its previous destination when setting a new one.
-    /// </summary>
-
-    public float MaximumWanderDistance { get { return _maximumWanderDistance; } }
 
     #endregion
 
@@ -211,6 +225,14 @@ public class ZombieController : MonoBehaviour
         {
             SwitchState(ZombieState.Attack);
         }
+
+        // If outside of chase distance, disengage, and continue to wander.
+
+        if (!IsWithinChaseDistance())
+        {
+            SwitchState(ZombieState.Wander);
+            CachedNavMeshAgent.ResetPath();
+        }
     }
 
     private void Attack()
@@ -224,6 +246,8 @@ public class ZombieController : MonoBehaviour
 
         ResetAnimatorParameters(CachedAnimatorControllerParameters);
         CachedAnimator.SetBool("IsAttacking", true);
+
+        // Let this game object continue its chase after the player is outside of its attack range (stopping distance).
 
         if (DistanceToPlayer() > CachedNavMeshAgent.stoppingDistance)
         {
@@ -244,7 +268,7 @@ public class ZombieController : MonoBehaviour
 
     private float DistanceToPlayer()
     {
-        // Compute a vector from this game object to the target and determine its magnitude.
+        // Compute a vector from this game object to the target (usually the player) and determine its magnitude.
 
         Vector3 vectorToTarget = AgentTarget.transform.position - transform.position;
         float distanceToPlayer = vectorToTarget.magnitude;
@@ -260,6 +284,16 @@ public class ZombieController : MonoBehaviour
     private bool CanSeePlayer()
     {
         return DistanceToPlayer() < AggroDistance ? true : false;
+    }
+
+    /// <summary>
+    /// Determines whether the distance between the target (usually the player) and this game object is smaller than the chase distance.
+    /// </summary>
+    /// <returns></returns>
+
+    private bool IsWithinChaseDistance()
+    {
+        return DistanceToPlayer() < ChaseDistance ? true : false;
     }
 
     /// <summary>
@@ -328,6 +362,9 @@ public class ZombieController : MonoBehaviour
 
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(transform.position, AttackRange);
+
+        Gizmos.color = Color.cyan;
+        Gizmos.DrawWireSphere(transform.position, ChaseDistance);
     }
 
     #endregion
