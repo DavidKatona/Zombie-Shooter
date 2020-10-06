@@ -2240,11 +2240,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _agentTarget: {fileID: 0}
-  _minimumWanderDistance: -5
-  _maximumWanderDistance: 5
-  _aggroDistance: 10
+  _minimumWanderDistance: -10
+  _maximumWanderDistance: 10
+  _aggroDistance: 15
   _chaseDistance: 30
-  _attackRange: 2.5
+  _attackRange: 2
   _walkSpeed: 0.9
   _chaseSpeed: 5
 --- !u!195 &263683674
@@ -2258,7 +2258,7 @@ NavMeshAgent:
   m_AgentTypeID: 0
   m_Radius: 0.5
   m_Speed: 0.8
-  m_Acceleration: 8
+  m_Acceleration: 16
   avoidancePriority: 50
   m_AngularSpeed: 640
   m_StoppingDistance: 1.5

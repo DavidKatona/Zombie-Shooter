@@ -5231,40 +5231,15 @@ PrefabInstance:
       propertyPath: m_Name
       value: boss
       objectReference: {fileID: 0}
-    - target: {fileID: 1099347172983380646, guid: d5b7cf80f1fab4ea0bd49a0e878214fe,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 2467160273687469372, guid: d5b7cf80f1fab4ea0bd49a0e878214fe,
         type: 3}
       propertyPath: _agentTarget
       value: 
       objectReference: {fileID: 1209222534}
-    - target: {fileID: 2467160273687469372, guid: d5b7cf80f1fab4ea0bd49a0e878214fe,
-        type: 3}
-      propertyPath: _minimumWanderDistance
-      value: -5
-      objectReference: {fileID: 0}
-    - target: {fileID: 2467160273687469372, guid: d5b7cf80f1fab4ea0bd49a0e878214fe,
-        type: 3}
-      propertyPath: _maximumWanderDistance
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 2467160273687469372, guid: d5b7cf80f1fab4ea0bd49a0e878214fe,
-        type: 3}
-      propertyPath: _chaseSpeed
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 2467160273687469372, guid: d5b7cf80f1fab4ea0bd49a0e878214fe,
-        type: 3}
-      propertyPath: _walkSpeed
-      value: 0.5
-      objectReference: {fileID: 0}
     - target: {fileID: 4114869168490670261, guid: d5b7cf80f1fab4ea0bd49a0e878214fe,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0.9761658
+      value: 5.9
       objectReference: {fileID: 0}
     - target: {fileID: 4114869168490670261, guid: d5b7cf80f1fab4ea0bd49a0e878214fe,
         type: 3}
@@ -5274,7 +5249,7 @@ PrefabInstance:
     - target: {fileID: 4114869168490670261, guid: d5b7cf80f1fab4ea0bd49a0e878214fe,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -1.6031494
+      value: 8.96
       objectReference: {fileID: 0}
     - target: {fileID: 4114869168490670261, guid: d5b7cf80f1fab4ea0bd49a0e878214fe,
         type: 3}
@@ -6862,40 +6837,15 @@ PrefabInstance:
       propertyPath: _agentTarget
       value: 
       objectReference: {fileID: 1209222534}
-    - target: {fileID: 341414593864217509, guid: 6a1d6fe89cd7e4fe486e4cabf09b8d3d,
-        type: 3}
-      propertyPath: _minimumWanderDistance
-      value: -5
-      objectReference: {fileID: 0}
-    - target: {fileID: 341414593864217509, guid: 6a1d6fe89cd7e4fe486e4cabf09b8d3d,
-        type: 3}
-      propertyPath: _maximumWanderDistance
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 341414593864217509, guid: 6a1d6fe89cd7e4fe486e4cabf09b8d3d,
-        type: 3}
-      propertyPath: _walkSpeed
-      value: 1.2
-      objectReference: {fileID: 0}
-    - target: {fileID: 341414593864217509, guid: 6a1d6fe89cd7e4fe486e4cabf09b8d3d,
-        type: 3}
-      propertyPath: _chaseSpeed
-      value: 5.2
-      objectReference: {fileID: 0}
     - target: {fileID: 5176861845160572960, guid: 6a1d6fe89cd7e4fe486e4cabf09b8d3d,
         type: 3}
       propertyPath: m_Name
       value: zombieman
       objectReference: {fileID: 0}
-    - target: {fileID: 5176861845160572960, guid: 6a1d6fe89cd7e4fe486e4cabf09b8d3d,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 8182110007186639411, guid: 6a1d6fe89cd7e4fe486e4cabf09b8d3d,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -3.0899048
+      value: 0.16
       objectReference: {fileID: 0}
     - target: {fileID: 8182110007186639411, guid: 6a1d6fe89cd7e4fe486e4cabf09b8d3d,
         type: 3}
@@ -6905,7 +6855,7 @@ PrefabInstance:
     - target: {fileID: 8182110007186639411, guid: 6a1d6fe89cd7e4fe486e4cabf09b8d3d,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -0.76467896
+      value: 4.42
       objectReference: {fileID: 0}
     - target: {fileID: 8182110007186639411, guid: 6a1d6fe89cd7e4fe486e4cabf09b8d3d,
         type: 3}
@@ -7879,20 +7829,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1941091740}
     m_Modifications:
-    - target: {fileID: 263683674, guid: 7912ec467aa9147a59e49b3925ad126e, type: 3}
-      propertyPath: m_Acceleration
-      value: 16
-      objectReference: {fileID: 0}
     - target: {fileID: 3810602186405838353, guid: 7912ec467aa9147a59e49b3925ad126e,
         type: 3}
       propertyPath: _agentTarget
       value: 
       objectReference: {fileID: 1209222534}
-    - target: {fileID: 3810602186405838353, guid: 7912ec467aa9147a59e49b3925ad126e,
-        type: 3}
-      propertyPath: _attackRange
-      value: 2
-      objectReference: {fileID: 0}
     - target: {fileID: 5643912976069227624, guid: 7912ec467aa9147a59e49b3925ad126e,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -11002,7 +10943,7 @@ PrefabInstance:
     - target: {fileID: 5286606572932149362, guid: b7dd32307aa7f43bf98270b4b8b91c33,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -4.021042
+      value: 3.29
       objectReference: {fileID: 0}
     - target: {fileID: 5286606572932149362, guid: b7dd32307aa7f43bf98270b4b8b91c33,
         type: 3}
@@ -11012,7 +10953,7 @@ PrefabInstance:
     - target: {fileID: 5286606572932149362, guid: b7dd32307aa7f43bf98270b4b8b91c33,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -2.1715698
+      value: 3.62
       objectReference: {fileID: 0}
     - target: {fileID: 5286606572932149362, guid: b7dd32307aa7f43bf98270b4b8b91c33,
         type: 3}
@@ -11059,40 +11000,10 @@ PrefabInstance:
       propertyPath: _agentTarget
       value: 
       objectReference: {fileID: 1209222534}
-    - target: {fileID: 6229971281544246943, guid: b7dd32307aa7f43bf98270b4b8b91c33,
-        type: 3}
-      propertyPath: _minimumWanderDistance
-      value: -5
-      objectReference: {fileID: 0}
-    - target: {fileID: 6229971281544246943, guid: b7dd32307aa7f43bf98270b4b8b91c33,
-        type: 3}
-      propertyPath: _maximumWanderDistance
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 6229971281544246943, guid: b7dd32307aa7f43bf98270b4b8b91c33,
-        type: 3}
-      propertyPath: _aggroDistance
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 6229971281544246943, guid: b7dd32307aa7f43bf98270b4b8b91c33,
-        type: 3}
-      propertyPath: _walkSpeed
-      value: 0.8
-      objectReference: {fileID: 0}
-    - target: {fileID: 6229971281544246943, guid: b7dd32307aa7f43bf98270b4b8b91c33,
-        type: 3}
-      propertyPath: _chaseSpeed
-      value: 5
-      objectReference: {fileID: 0}
     - target: {fileID: 9153167617879130721, guid: b7dd32307aa7f43bf98270b4b8b91c33,
         type: 3}
       propertyPath: m_Name
       value: jill
-      objectReference: {fileID: 0}
-    - target: {fileID: 9153167617879130721, guid: b7dd32307aa7f43bf98270b4b8b91c33,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b7dd32307aa7f43bf98270b4b8b91c33, type: 3}

@@ -168,7 +168,7 @@ public class ZombieController : MonoBehaviour
         {
             SwitchState(ZombieState.Chase);
         }
-        else
+        else if (Random.Range(0, 5000) < 5)
         {
             SwitchState(ZombieState.Wander);
         }
@@ -179,7 +179,24 @@ public class ZombieController : MonoBehaviour
         // Switch to chase if the player is within aggro distance.
 
         if (CanSeePlayer())
+        {
             SwitchState(ZombieState.Chase);
+        }
+        else if (Random.Range(0, 5000) < 5)
+        {
+            SwitchState(ZombieState.Idle);
+            ResetAnimatorParameters(CachedAnimatorControllerParameters);
+            CachedNavMeshAgent.ResetPath();
+
+            return;
+        }
+
+        // Reset all animation parameters if the agent is close to its destination so its not going to walk or run in place.
+
+        if (CachedNavMeshAgent.remainingDistance <= 0.25f)
+        {
+            ResetAnimatorParameters(CachedAnimatorControllerParameters);
+        }
 
         // Only generate a new target destination of the nav mesh agent does not have a path already.
 
@@ -365,6 +382,12 @@ public class ZombieController : MonoBehaviour
 
         Gizmos.color = Color.cyan;
         Gizmos.DrawWireSphere(transform.position, ChaseDistance);
+
+        if (CachedNavMeshAgent != null)
+        {
+            Gizmos.color = Color.magenta;
+            Gizmos.DrawWireSphere(CachedNavMeshAgent.destination, 1f);
+        }
     }
 
     #endregion
