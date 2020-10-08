@@ -4,6 +4,11 @@ using UnityEngine.AI;
 
 namespace Assets.Zombies.Scripts
 {
+
+    // Consider turning the spawner into a zombie pooler instead so instantiation will not cause performance hits at runtime.
+    // ToDo: Research on object pooling, refactor this into a zombie pooler.
+    // Note: Ragdolls should be childed to the actual zombie prefabs as deactivated objects (so they'll be part of the pooling system too), and simply turn them on when they die and disable the animated models.
+
     public class Spawner : MonoBehaviour
     {
         #region EDITOR EXPOSED FIELDS
@@ -146,12 +151,10 @@ namespace Assets.Zombies.Scripts
             if (SpawnTrigger == null)
             {
                 StartCoroutine(SpawnEnemies(Quantity, DelayBetweenSpawns));
-            }
-            else
-            {
-                SpawnTrigger.isTrigger = true;
+                return;
             }
 
+            SpawnTrigger.isTrigger = true;
         }
 
         private void OnTriggerEnter(Collider other)
