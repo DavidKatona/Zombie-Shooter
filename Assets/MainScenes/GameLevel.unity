@@ -4653,7 +4653,7 @@ MonoBehaviour:
   _prefabToSpawn: {fileID: 3699976358676256820, guid: 128bfa26ca02fb1419c63ea74082b2cd,
     type: 3}
   _quantity: 15
-  _delayBetweenSpawns: 1
+  _delayBetweenSpawns: 5
   _spawnRadius: 20
   _spawnTrigger: {fileID: 773941964}
   _parentUnder: {fileID: 773941961}

@@ -104,6 +104,8 @@ namespace Assets.Zombies.Scripts
 
         private IEnumerator SpawnEnemies(int amount, float delay)
         {
+            SpawnTrigger.enabled = false;
+
             if (PrefabToSpawn == null)
                 yield break;
 
