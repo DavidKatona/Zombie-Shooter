@@ -1,5 +1,7 @@
-﻿using Assets.Scripts.Extensions;
+﻿using Assets.Scripts.Damageables.Common;
+using Assets.Scripts.Extensions;
 using Assets.Scripts.ScriptableObjects;
+using UnityEditor;
 using UnityEngine;
 
 namespace Assets.Scripts.CharacterController
@@ -14,6 +16,9 @@ namespace Assets.Scripts.CharacterController
 
         [Tooltip("The scriptable object that holds information about the ammunition loaded into the weapon.")]
         [SerializeField] private IntVariable _ammoClipObject = null;
+
+        [Tooltip("The firepoint of the weapon from which rays are cast and effects are instantiated at.")]
+        [SerializeField] private Transform _firepointTransform = null;
 
         [Header("Options")]
         [Tooltip("The amount of ammunition the weapon uses per shot.")]
@@ -53,6 +58,12 @@ namespace Assets.Scripts.CharacterController
         /// </summary>
 
         public IntVariable AmmoClipObject { get { return _ammoClipObject; } }
+
+        /// <summary>
+        /// The firepoint of the weapon from which rays are cast and effects are instantiated at.
+        /// </summary>
+
+        public Transform FirepointTransform { get { return _firepointTransform; } }
 
         /// <summary>
         /// The amount of ammunition depleted when this weapon is fired (ammo/shot).
@@ -119,6 +130,27 @@ namespace Assets.Scripts.CharacterController
             var clipToPlay = AmmoClipObject.RuntimeValue > 0 ? WeaponShotClip : WeaponTriggerClip;
             AudioSource audioSource = new AudioSource();
             audioSource.InstantiateAudioSource(clipToPlay, transform.position);
+
+            HandleShootingLogic();
+        }
+
+        private void HandleShootingLogic()
+        {
+            if (AmmoClipObject.RuntimeValue <= 0)
+                return;
+
+
+            RaycastHit hitInfo;
+            if (Physics.Raycast(FirepointTransform.position, FirepointTransform.forward, out hitInfo, 200))
+            {
+                GameObject objectToHit = hitInfo.collider.gameObject;
+                IDamageable damageable = objectToHit.GetComponent<IDamageable>();
+
+                if (damageable != null)
+                {
+                    damageable.TakeDamage(1);
+                }
+            }
         }
 
         /// <summary>

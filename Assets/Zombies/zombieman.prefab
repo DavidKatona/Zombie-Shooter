@@ -1720,6 +1720,7 @@ GameObject:
   - component: {fileID: 4858005932450810756}
   - component: {fileID: 341414593864217509}
   - component: {fileID: 1121510208}
+  - component: {fileID: 851358214221240128}
   m_Layer: 0
   m_Name: zombieman
   m_TagString: Untagged
@@ -1804,6 +1805,20 @@ NavMeshAgent:
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
+--- !u!136 &851358214221240128
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5176861845160572960}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 0.5
+  m_Height: 1.75
+  m_Direction: 1
+  m_Center: {x: 0, y: 0.9, z: 0}
 --- !u!1 &5215620285009353330
 GameObject:
   m_ObjectHideFlags: 0

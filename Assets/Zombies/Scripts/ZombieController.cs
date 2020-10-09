@@ -1,9 +1,11 @@
 ﻿using UnityEngine;
 using UnityEngine.AI;
 using Assets.Zombies.Scripts;
+using Assets.Zombies.Scripts.Ragdoll;
+using Assets.Scripts.Damageables.Common;
 
 [RequireComponent(typeof(NavMeshAgent))]
-public class ZombieController : MonoBehaviour
+public class ZombieController : MonoBehaviour, IDamageable
 {
     #region EDITOR EXPOSED FIELDS
 
@@ -73,6 +75,12 @@ public class ZombieController : MonoBehaviour
     /// </summary>
 
     public NavMeshAgent CachedNavMeshAgent { get; private set; }
+
+    /// <summary>
+    /// The cached ragdoll controller component attached to this game object or its parents.
+    /// </summary>
+
+    public RagdollController CachedRagdollController { get; private set; }
 
     /// <summary>
     /// The state this zombie is currently in. Represents the current behaviour its doing.
@@ -274,6 +282,17 @@ public class ZombieController : MonoBehaviour
 
     }
 
+    public void TakeDamage(int amount)
+    {
+        // ToDo: Finish the implementation of this function. Ragdolls should not activate instantly. It's only for testing purposes.
+
+        ResetAnimatorParameters(CachedAnimatorControllerParameters);
+        SwitchState(ZombieState.Dead);
+
+        CachedRagdollController.ActivateRagdoll();
+        CachedRagdollController.RagdollHipsRigidbody.AddForce(Camera.main.transform.forward * 3000);
+    }
+
     /// <summary>
     /// A helper function that dynamically finds the player should these objects be instantiated from a prefab and their target has not been
     /// defined manually in the inspector.
@@ -371,6 +390,7 @@ public class ZombieController : MonoBehaviour
         CachedNavMeshAgent = GetComponent<NavMeshAgent>();
         CachedAnimator = GetComponent<Animator>();
         CachedAnimatorControllerParameters = CachedAnimator.parameters;
+        CachedRagdollController = GetComponentInParent<RagdollController>();
 
         RegisterTarget();
     }
