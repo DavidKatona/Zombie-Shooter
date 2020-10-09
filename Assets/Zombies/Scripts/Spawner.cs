@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using Assets.Zombies.Scripts.ObjectPooling;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -43,6 +44,12 @@ namespace Assets.Zombies.Scripts
         /// </summary>
 
         public Transform CachedTransform { get; private set; }
+
+        /// <summary>
+        /// The cached object pooler instance.
+        /// </summary>
+
+        public ObjectPooler CachedObjectPooler { get; private set; }
 
         /// <summary>
         /// The game object (prefab) that this spawner will instantiate.
@@ -144,6 +151,7 @@ namespace Assets.Zombies.Scripts
             // Cache and initialize components.
 
             CachedTransform = GetComponent<Transform>();
+            CachedObjectPooler = ObjectPooler.Instance;
         }
 
         private void Start()
