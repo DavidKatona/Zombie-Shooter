@@ -5,16 +5,10 @@ namespace Assets.Zombies.Scripts.ObjectPooling
 {
     public class ObjectPooler : MonoBehaviour
     {
-        #region EDITOR EXPOSED FIELDS
-
-        [Tooltip("The list of pools this object pooler holds.")]
-        [SerializeField] private List<Pool> _pools = null;
-
-        #endregion
-
         #region FIELDS
 
         private static ObjectPooler _instance;
+        private List<Pool> _pools = new List<Pool>();
 
         #endregion
 
@@ -40,7 +34,7 @@ namespace Assets.Zombies.Scripts.ObjectPooling
 
         private void InitializeInstance()
         {
-            if (Instance != null || Instance != this)
+            if (Instance != null && Instance != this)
             {
                 Destroy(Instance);
             }
@@ -48,6 +42,38 @@ namespace Assets.Zombies.Scripts.ObjectPooling
             {
                 Instance = this;
             }
+        }
+
+        /// <summary>
+        /// Adds a new pool to the object pooler defined by a tag, size, and a prefab.
+        /// </summary>
+        /// <param name="tag">The tag to assign to the pool.</param>
+        /// <param name="size">The size of the pool.</param>
+        /// <param name="prefab">The prefab used by the pool.</param>
+        /// <param name="position">The position at which the pooled object will be instantiated.</param>
+
+        public void AddPool(string tag, int size, GameObject prefab, Vector3 position)
+        {
+            Pool poolToAdd = new Pool()
+            {
+                Tag = tag,
+                Size = size,
+                Prefab = prefab
+            };
+
+            Pools.Add(poolToAdd);
+
+            Queue<GameObject> objectPool = new Queue<GameObject>();
+
+            for (int i = 0; i < poolToAdd.Size; i++)
+            {
+                GameObject obj = Instantiate(poolToAdd.Prefab, position, Quaternion.identity);
+                obj.transform.parent = gameObject.transform;
+                obj.SetActive(false);
+                objectPool.Enqueue(obj);
+            }
+
+            PoolDictionary.Add(poolToAdd.Tag, objectPool);
         }
 
         /// <summary>
@@ -68,9 +94,9 @@ namespace Assets.Zombies.Scripts.ObjectPooling
 
             GameObject objectToSpawn = PoolDictionary[tag].Dequeue();
 
-            objectToSpawn.SetActive(true);
             objectToSpawn.transform.position = position;
             objectToSpawn.transform.rotation = rotation;
+            objectToSpawn.SetActive(true);
 
             PoolDictionary[tag].Enqueue(objectToSpawn);
 
@@ -87,25 +113,6 @@ namespace Assets.Zombies.Scripts.ObjectPooling
 
             InitializeInstance();
             PoolDictionary = new Dictionary<string, Queue<GameObject>>();
-        }
-
-        private void Start()
-        {
-            // Iterate through all the pools and add them to the pool dictionary.
-
-            foreach (Pool pool in Pools)
-            {
-                Queue<GameObject> objectPool = new Queue<GameObject>();
-
-                for (int i = 0; i < pool.Size; i++)
-                {
-                    GameObject obj = Instantiate(pool.Prefab);
-                    obj.SetActive(false);
-                    objectPool.Enqueue(obj);
-                }
-
-                PoolDictionary.Add(pool.Tag, objectPool);
-            }
         }
 
         #endregion

@@ -107,7 +107,7 @@ namespace Assets.Zombies.Scripts
             if (PrefabToSpawn == null)
                 yield break;
 
-            Debug.Log($"{gameObject.name}: starting spawn sequence with amount: {amount} objects, delay between instantiations: {delay} seconds.");
+            Debug.Log($"{gameObject.name}: starting spawn sequence with amount: {amount} objects, delay between spawns: {delay} seconds.");
 
             for (int i = 0; i < amount; i++)
             {
@@ -118,13 +118,13 @@ namespace Assets.Zombies.Scripts
 
                 if (NavMesh.SamplePosition(randomPoint, out hit, Mathf.Infinity, NavMesh.AllAreas))
                 {
-                    var objectToInstantiate = Instantiate(PrefabToSpawn, hit.position, Quaternion.identity);
+                    var objectToSpawn = CachedObjectPooler.SpawnFromPool(gameObject.name, hit.position, Quaternion.identity);
 
                     // Parent the instantiated objects under another game object if that parent exists.
 
                     if (ParentUnder != null)
                     {
-                        objectToInstantiate.transform.parent = ParentUnder.transform;
+                        objectToSpawn.transform.parent = ParentUnder.transform;
                     }
                 }
                 else
@@ -134,7 +134,7 @@ namespace Assets.Zombies.Scripts
                     i--;
                 }
 
-                // We don't want all enemies to be spawned at once so we delay their instantiation.
+                // We don't want all enemies to be spawned at once so we delay the process.
 
                 yield return new WaitForSeconds(delay);
             }
@@ -152,6 +152,7 @@ namespace Assets.Zombies.Scripts
 
             CachedTransform = GetComponent<Transform>();
             CachedObjectPooler = ObjectPooler.Instance;
+            CachedObjectPooler.AddPool(gameObject.name, Quantity, PrefabToSpawn, CachedTransform.position);
         }
 
         private void Start()
