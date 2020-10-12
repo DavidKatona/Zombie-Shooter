@@ -7,7 +7,7 @@ namespace Assets.CharacterSystems.Scripts.CharacterController
         private void OnDrawGizmos()
         {
             Gizmos.color = Color.red;
-            Gizmos.DrawLine(transform.position, transform.position + transform.forward * 200);
+            Gizmos.DrawLine(transform.position, transform.position + Camera.main.transform.forward * 200);
         }
 
         private void OnDrawGizmosSelected()

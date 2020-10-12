@@ -141,7 +141,7 @@ namespace Assets.Scripts.CharacterController
 
 
             RaycastHit hitInfo;
-            if (Physics.Raycast(FirepointTransform.position, FirepointTransform.forward, out hitInfo, 200))
+            if (Physics.Raycast(FirepointTransform.position, Camera.main.transform.forward, out hitInfo, 200))
             {
                 GameObject objectToHit = hitInfo.collider.gameObject;
                 IDamageable damageable = objectToHit.GetComponent<IDamageable>();
