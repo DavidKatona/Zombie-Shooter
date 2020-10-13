@@ -63,12 +63,23 @@ namespace Assets.Zombies.Scripts.Ragdoll
 
         #region METHODS
 
+        /// <summary>
+        /// Activates the ragdoll object defined by this script.
+        /// </summary>
+
         public void ActivateRagdoll()
         {
             CopyTransformData(AnimatedModel.transform, Ragdoll.transform, NavMeshAgent.velocity);
             Ragdoll.SetActive(true);
             AnimatedModel.SetActive(false);
         }
+
+        /// <summary>
+        /// Copies transform specific information and rigidbody velocities from transform A to transform B.
+        /// </summary>
+        /// <param name="sourceTransform"></param>
+        /// <param name="destinationTransform"></param>
+        /// <param name="velocity"></param>
 
         private void CopyTransformData(Transform sourceTransform, Transform destinationTransform, Vector3 velocity)
         {
