@@ -1,7 +1,6 @@
 ﻿using Assets.Scripts.Damageables.Common;
 using Assets.Scripts.Extensions;
 using Assets.Scripts.ScriptableObjects;
-using UnityEditor;
 using UnityEngine;
 
 namespace Assets.Scripts.CharacterController
