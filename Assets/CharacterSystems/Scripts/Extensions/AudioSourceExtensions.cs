@@ -2,6 +2,8 @@
 
 namespace Assets.Scripts.Extensions
 {
+    // DEPRECATED
+
     public static class AudioSourceExtensions
     {
         /// <summary>

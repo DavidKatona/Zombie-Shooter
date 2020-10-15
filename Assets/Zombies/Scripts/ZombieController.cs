@@ -19,6 +19,11 @@ public class ZombieController : MonoBehaviour, IDamageable
     [Tooltip("How far the agent is allowed to wander away from its previous destination.")]
     [SerializeField] private float _maximumWanderDistance = 5f;
 
+    [Header("Zombie Stats")]
+    [Space(10)]
+    [Tooltip("The amount of damage this particular zombie type deals each hit.")]
+    [SerializeField] private int _damage = 10;
+
     [Header("Zombie Behaviour")]
     [Space(10)]
     [Tooltip("How close the player has to be (in units) to this game object, in order to get its attention.")]
@@ -40,7 +45,6 @@ public class ZombieController : MonoBehaviour, IDamageable
     [Tooltip("The speed at which this unit moves when its chasing its target.")]
     [Range(0, 10)]
     [SerializeField] private float _chaseSpeed = 2f;
-
 
     #endregion
 
@@ -116,6 +120,12 @@ public class ZombieController : MonoBehaviour, IDamageable
     /// </summary>
 
     public float MaximumWanderDistance { get { return _maximumWanderDistance; } }
+
+    /// <summary>
+    /// How much damage this zombie deals with each strike.
+    /// </summary>
+
+    public int Damage { get { return _damage; } }
 
     /// <summary>
     /// How close the target has to be (in units) to this game object, so it will keep chasing it around the map.
@@ -277,14 +287,24 @@ public class ZombieController : MonoBehaviour, IDamageable
         }
     }
 
+    private void OnAttackDone()
+    {
+        IDamageable damageable = AgentTarget.GetComponent<IDamageable>();
+
+        if (damageable != null)
+        {
+            damageable.TakeDamage(Damage);
+        }
+    }
+
     private void Die()
     {
-
+        // To be implemented.
     }
 
     public void TakeDamage(int amount)
     {
-        // ToDo: Finish the implementation of this function. Ragdolls should not activate instantly. It's only for testing purposes.
+        // ToDo: Finish the implementation of this function. It's only for testing purposes.
 
         ResetAnimatorParameters(CachedAnimatorControllerParameters);
         SwitchState(ZombieState.Dead);

@@ -19,6 +19,12 @@ namespace Assets.Scripts.CollectibleSystem.CollectibleTypes
         #region PROPERTIES
 
         /// <summary>
+        /// The cached transform component attached to the collectible object.
+        /// </summary>
+
+        public Transform CachedTransform { get; private set; }
+
+        /// <summary>
         /// The audio clip that plays when this collectible is picked up.
         /// </summary>
 
@@ -44,8 +50,7 @@ namespace Assets.Scripts.CollectibleSystem.CollectibleTypes
 
         protected void PlayPickupSound()
         {
-            AudioSource audioSource = new AudioSource();
-            audioSource.InstantiateAudioSource(PickupSound, transform.position);
+            AudioSource.PlayClipAtPoint(PickupSound, CachedTransform.position, 1f);
         }
 
         /// <summary>
@@ -55,6 +60,15 @@ namespace Assets.Scripts.CollectibleSystem.CollectibleTypes
         protected virtual void ApplyEffects()
         {
             Debug.Log("Called from BaseType.");
+        }
+
+        #endregion
+
+        #region MONOBEHAVIOUR
+
+        protected virtual void Awake()
+        {
+            CachedTransform = GetComponent<Transform>();
         }
 
         #endregion

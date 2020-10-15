@@ -56,6 +56,19 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 376332586772644404}
     m_Modifications:
+    - target: {fileID: 263683674, guid: 7912ec467aa9147a59e49b3925ad126e, type: 3}
+      propertyPath: m_StoppingDistance
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 263683674, guid: 7912ec467aa9147a59e49b3925ad126e, type: 3}
+      propertyPath: m_AutoBraking
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3810602186405838353, guid: 7912ec467aa9147a59e49b3925ad126e,
+        type: 3}
+      propertyPath: _attackRange
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 5643912976069227624, guid: 7912ec467aa9147a59e49b3925ad126e,
         type: 3}
       propertyPath: m_LocalPosition.x

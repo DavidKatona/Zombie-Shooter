@@ -2,6 +2,7 @@
 using Assets.Scripts.Extensions;
 using Assets.Scripts.Damageables.Common;
 using UnityEngine;
+using System.Collections;
 
 namespace Assets.Scripts.CharacterStats
 {
@@ -17,12 +18,27 @@ namespace Assets.Scripts.CharacterStats
         [Tooltip("The audio clip that plays when the character takes damage.")]
         [SerializeField] private AudioClip[] _onDamagedAudioClips = null;
 
+        [Tooltip("The audio clips that reflect the impact of an attack dealt on the player.")]
+        [SerializeField] private AudioClip[] _onDamagedSplashClips = null;
+
         [Tooltip("The aduio clip that plays when the character dies.")]
         [SerializeField] private AudioClip _onDeathAudioClip = null;
 
         #endregion
 
+        #region FIELDS
+
+        private bool _isRecentlyDamaged;
+
+        #endregion
+
         #region PROPERTIES
+
+        /// <summary>
+        /// The cached audio source component attached to this game object.
+        /// </summary>
+
+        public AudioSource CachedAudioSource { get; private set; }
 
         /// <summary>
         /// The "Health" scriptable object that's attached to this game object.
@@ -36,6 +52,12 @@ namespace Assets.Scripts.CharacterStats
         /// </summary>
 
         public AudioClip[] OnDamagedAudioClips { get { return _onDamagedAudioClips; } }
+
+        /// <summary>
+        /// The audio clips that reflect the impact of an attack dealt on the player.
+        /// </summary>
+
+        public AudioClip[] OnDamagedSplashClips { get { return _onDamagedSplashClips; } }
 
         /// <summary>
         /// The audio clip that plays when the character dies.
@@ -59,9 +81,10 @@ namespace Assets.Scripts.CharacterStats
 
             if (HealthObject.RuntimeValue > 0)
             {
-                // Lower health.
+                // Lower health and play splash sound.
 
                 HealthObject.RuntimeValue -= amount;
+                CachedAudioSource.PlayOneShot(GetRandomAudioClip(OnDamagedSplashClips), 0.5f);
 
                 if (HealthObject.RuntimeValue <= 0)
                 {
@@ -71,9 +94,20 @@ namespace Assets.Scripts.CharacterStats
 
                 // Play sound effect.
 
-                AudioSource audioSource = new AudioSource();
-                audioSource.InstantiateAudioSource(GetRandomAudioClip(OnDamagedAudioClips), transform.position);
+                if (!_isRecentlyDamaged)
+                {
+                    _isRecentlyDamaged = true;
+                    StartCoroutine(ResetDamagedState(0.8f));
+
+                    CachedAudioSource.PlayOneShot(GetRandomAudioClip(OnDamagedAudioClips));
+                }
             }
+        }
+
+        private IEnumerator ResetDamagedState(float delay)
+        {
+            yield return new WaitForSeconds(delay);
+            _isRecentlyDamaged = false;
         }
 
         private void Die()
@@ -84,14 +118,24 @@ namespace Assets.Scripts.CharacterStats
 
             // Play sound effect.
 
-            AudioSource audioSource = new AudioSource();
-            audioSource.InstantiateAudioSource(OnDeathAudioClip, transform.position);
+            CachedAudioSource.PlayOneShot(OnDeathAudioClip);
         }
 
         private AudioClip GetRandomAudioClip(AudioClip[] audioClips)
         {
             var randomIndex = Random.Range(0, audioClips.Length);
             return audioClips[randomIndex];
+        }
+
+        #endregion
+
+        #region MONOBEHAVIOUR
+
+        private void Awake()
+        {
+            // Cache and initialize components.
+
+            CachedAudioSource = GetComponent<AudioSource>();
         }
 
         #endregion

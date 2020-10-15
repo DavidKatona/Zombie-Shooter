@@ -47,6 +47,18 @@ namespace Assets.Scripts.CharacterController
         #region PROPERTIES
 
         /// <summary>
+        /// Cached animator component attached to the GameObject or one of its children.
+        /// </summary>
+
+        public Animator CachedAnimator { get; private set; }
+
+        /// <summary>
+        /// Cached audio source component attached to this GameObject.
+        /// </summary>
+
+        public AudioSource CachedAudioSource { get; private set; }
+
+        /// <summary>
         /// The scriptable object that holds information about the character's ammunition and this game object interacts with.
         /// </summary>
 
@@ -89,12 +101,6 @@ namespace Assets.Scripts.CharacterController
 
         public AudioClip WeaponReloadClip { get { return _weaponReloadClip; } }
 
-        /// <summary>
-        /// Cached animator component attached to the GameObject or one of its children.
-        /// </summary>
-
-        public Animator CachedAnimator { get; private set; }
-
         #endregion
 
         #region METHODS
@@ -127,8 +133,7 @@ namespace Assets.Scripts.CharacterController
             // Sound effects.
 
             var clipToPlay = AmmoClipObject.RuntimeValue > 0 ? WeaponShotClip : WeaponTriggerClip;
-            AudioSource audioSource = new AudioSource();
-            audioSource.InstantiateAudioSource(clipToPlay, transform.position);
+            CachedAudioSource.PlayOneShot(clipToPlay);
 
             HandleShootingLogic();
         }
@@ -175,8 +180,7 @@ namespace Assets.Scripts.CharacterController
 
                 // Play reloading sound effect.
 
-                AudioSource audioSource = new AudioSource();
-                audioSource.InstantiateAudioSource(WeaponReloadClip, transform.position);
+                CachedAudioSource.PlayOneShot(WeaponReloadClip);
 
                 // Notify animator to play animation.
 
@@ -209,6 +213,7 @@ namespace Assets.Scripts.CharacterController
             // Cache and initialize components.
 
             CachedAnimator = GetComponent<Animator>();
+            CachedAudioSource = GetComponent<AudioSource>();
         }
 
         private void Update()

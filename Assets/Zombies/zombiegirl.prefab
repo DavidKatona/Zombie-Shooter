@@ -2243,6 +2243,7 @@ MonoBehaviour:
   _agentTarget: {fileID: 0}
   _minimumWanderDistance: -10
   _maximumWanderDistance: 10
+  _damage: 15
   _aggroDistance: 25
   _chaseDistance: 35
   _attackRange: 2
