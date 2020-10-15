@@ -50,7 +50,7 @@ namespace Assets.Scripts.CollectibleSystem.CollectibleTypes
 
         protected void PlayPickupSound()
         {
-            AudioSource.PlayClipAtPoint(PickupSound, CachedTransform.position, 1f);
+            AudioSource.PlayClipAtPoint(PickupSound, CachedTransform.position);
         }
 
         /// <summary>
