@@ -240,17 +240,6 @@ public class ZombieController : MonoBehaviour, IDamageable
 
     private void Chase()
     {
-        // Verify if the target is still active in the scene.
-
-        if (!AgentTarget.activeInHierarchy)
-        {
-            CachedNavMeshAgent.ResetPath();
-            ResetAnimatorParameters(CachedAnimatorControllerParameters);
-            SwitchState(ZombieState.Idle);
-
-            return;
-        }
-
         // Set new destination to the player and change agent parameters.
 
         CachedNavMeshAgent.SetDestination(AgentTarget.transform.position);
@@ -280,17 +269,6 @@ public class ZombieController : MonoBehaviour, IDamageable
 
     private void Attack()
     {
-        // Verify if the target is still active in the scene.
-
-        if (!AgentTarget.activeInHierarchy)
-        {
-            ResetAnimatorParameters(CachedAnimatorControllerParameters);
-            CachedNavMeshAgent.ResetPath();
-            SwitchState(ZombieState.Idle);
-
-            return;
-        }
-
         // Rotate this game object to face its target.
 
         Vector3 targetPosition = new Vector3(AgentTarget.transform.position.x, CachedTransform.position.y, AgentTarget.transform.position.z);
@@ -311,11 +289,28 @@ public class ZombieController : MonoBehaviour, IDamageable
 
     private void OnAttackDone()
     {
+        // Verify if the target is still valid by checking if it's still active in the scene.
+
+        if (!CanSeePlayer())
+            return;
+
         IDamageable damageable = AgentTarget.GetComponent<IDamageable>();
 
         if (damageable != null)
         {
             damageable.TakeDamage(Damage);
+        }
+    }
+
+    public void OnTargetDisabled()
+    {
+        if (!AgentTarget.activeInHierarchy)
+        {
+            CachedNavMeshAgent.ResetPath();
+            ResetAnimatorParameters(CachedAnimatorControllerParameters);
+            SwitchState(ZombieState.Idle);
+
+            return;
         }
     }
 

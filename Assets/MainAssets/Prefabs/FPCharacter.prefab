@@ -283,12 +283,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _healthObject: {fileID: 11400000, guid: fb9f3d680cfe26e4ca6e3bb0a14ab613, type: 2}
+  _onPlayerDied: {fileID: 11400000, guid: 881a197069765b643a936bb2ec04bd19, type: 2}
+  _thirdPersonCharacter: {fileID: 0}
   _onDamagedAudioClips:
   - {fileID: 8300000, guid: 88212d15603516247816dbce7db48707, type: 3}
   - {fileID: 8300000, guid: cc195ae8eb20e0342b6e9ec27ca339e9, type: 3}
   - {fileID: 8300000, guid: 812f83c53df59654bbaf39e06a3562bc, type: 3}
   - {fileID: 8300000, guid: 78ba881eba0e3234c97fc1d2af7cc757, type: 3}
-  _onDamagedSplashClips: []
+  _onDamagedSplashClips:
+  - {fileID: 8300000, guid: a26b3785b27d7044cb0058d8fbd61652, type: 3}
+  - {fileID: 8300000, guid: c0757d2acf0031c498e4416412b2068b, type: 3}
+  - {fileID: 8300000, guid: a154101d3eda37644b8ea90f5bcc1968, type: 3}
   _onDeathAudioClip: {fileID: 8300000, guid: 3845c6d3e43e56a43a39352b5abaf531, type: 3}
 --- !u!82 &6096423681639207243
 AudioSource:

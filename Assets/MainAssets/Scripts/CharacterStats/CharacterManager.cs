@@ -1,5 +1,4 @@
 ﻿using Assets.Scripts.ScriptableObjects;
-using Assets.Scripts.Extensions;
 using Assets.Scripts.Damageables.Common;
 using UnityEngine;
 using System.Collections;
@@ -13,6 +12,13 @@ namespace Assets.Scripts.CharacterStats
         [Header("Scriptable Components")]
         [Tooltip("The scriptable object that holds information about the character's health.")]
         [SerializeField] private IntVariable _healthObject = null;
+
+        [Tooltip("The scriptable object that holds the listeners for the OnPlayerDied event.")]
+        [SerializeField] private GameEvent _onPlayerDied = null;
+
+        [Header("Other Components")]
+        [Tooltip("The game object that will be activated when the player views the character from a 3rd person perspective.")]
+        [SerializeField] private GameObject _thirdPersonCharacter = null;
 
         [Header("Options")]
         [Tooltip("The audio clip that plays when the character takes damage.")]
@@ -35,6 +41,12 @@ namespace Assets.Scripts.CharacterStats
         #region PROPERTIES
 
         /// <summary>
+        /// The cached transform component attached to this game object.
+        /// </summary>
+
+        public Transform CachedTransform { get; private set; }
+
+        /// <summary>
         /// The cached audio source component attached to this game object.
         /// </summary>
 
@@ -46,6 +58,18 @@ namespace Assets.Scripts.CharacterStats
         /// </summary>
 
         public IntVariable HealthObject { get { return _healthObject; } }
+
+        /// <summary>
+        /// The game object that will be activated when the player views the character from a 3rd person perspective
+        /// </summary>
+
+        public GameObject ThirdPersonCharacter { get { return _thirdPersonCharacter; } }
+
+        /// <summary>
+        /// The scriptable object that holds the listeners for the OnPlayerDied event.
+        /// </summary>
+
+        public GameEvent OnPlayerDied { get { return _onPlayerDied; } }
 
         /// <summary>
         /// The audio clip that plays when the character takes damage.
@@ -118,7 +142,17 @@ namespace Assets.Scripts.CharacterStats
 
             // Play sound effect.
 
-            CachedAudioSource.PlayOneShot(OnDeathAudioClip);
+            AudioSource.PlayClipAtPoint(GetRandomAudioClip(OnDamagedSplashClips), CachedTransform.position);
+            AudioSource.PlayClipAtPoint(OnDeathAudioClip, CachedTransform.position);
+
+            // Disable player.
+
+            gameObject.SetActive(false);
+            ThirdPersonCharacter.SetActive(true);
+
+            // Raise the OnPlayerDied event.
+
+            OnPlayerDied?.Raise();
         }
 
         private AudioClip GetRandomAudioClip(AudioClip[] audioClips)
@@ -135,6 +169,7 @@ namespace Assets.Scripts.CharacterStats
         {
             // Cache and initialize components.
 
+            CachedTransform = GetComponent<Transform>();
             CachedAudioSource = GetComponent<AudioSource>();
         }
 

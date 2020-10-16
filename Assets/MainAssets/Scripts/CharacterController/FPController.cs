@@ -280,6 +280,11 @@ namespace Assets.Scripts.CharacterController
             }
         }
 
+        private void OnDisable()
+        {
+            CancelInvoke("InvokeFootstepSounds");
+        }
+
         #endregion
     }
 }

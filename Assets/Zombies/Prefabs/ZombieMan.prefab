@@ -49,6 +49,34 @@ MonoBehaviour:
   _ragdoll: {fileID: 8846953668820723924}
   _ragdollHipsRigidbody: {fileID: 713640681220160976}
   _navMeshAgent: {fileID: 1466528706029016953}
+--- !u!114 &1256193640979738318
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6020679921193225241}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 11d2711604bddee4fa1a6eee16cfddfb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _event: {fileID: 11400000, guid: 881a197069765b643a936bb2ec04bd19, type: 2}
+  _response:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1217901359382398876}
+        m_TargetAssemblyTypeName: ZombieController, Assembly-CSharp
+        m_MethodName: OnTargetDisabled
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1001 &1466528707058152505
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -130,6 +158,18 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1466528707058152505}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1217901359382398876 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 341414593864217509, guid: 6a1d6fe89cd7e4fe486e4cabf09b8d3d,
+    type: 3}
+  m_PrefabInstance: {fileID: 1466528707058152505}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6020679921193225241}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9973de6a4ad97ce45b9113e84fdb678b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!195 &1466528706029016953 stripped
 NavMeshAgent:
   m_CorrespondingSourceObject: {fileID: 1121510208, guid: 6a1d6fe89cd7e4fe486e4cabf09b8d3d,
