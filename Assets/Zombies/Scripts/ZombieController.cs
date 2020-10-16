@@ -240,6 +240,17 @@ public class ZombieController : MonoBehaviour, IDamageable
 
     private void Chase()
     {
+        // Verify if the target is still active in the scene.
+
+        if (!AgentTarget.activeInHierarchy)
+        {
+            CachedNavMeshAgent.ResetPath();
+            ResetAnimatorParameters(CachedAnimatorControllerParameters);
+            SwitchState(ZombieState.Idle);
+
+            return;
+        }
+
         // Set new destination to the player and change agent parameters.
 
         CachedNavMeshAgent.SetDestination(AgentTarget.transform.position);
@@ -269,6 +280,17 @@ public class ZombieController : MonoBehaviour, IDamageable
 
     private void Attack()
     {
+        // Verify if the target is still active in the scene.
+
+        if (!AgentTarget.activeInHierarchy)
+        {
+            ResetAnimatorParameters(CachedAnimatorControllerParameters);
+            CachedNavMeshAgent.ResetPath();
+            SwitchState(ZombieState.Idle);
+
+            return;
+        }
+
         // Rotate this game object to face its target.
 
         Vector3 targetPosition = new Vector3(AgentTarget.transform.position.x, CachedTransform.position.y, AgentTarget.transform.position.z);
@@ -314,15 +336,15 @@ public class ZombieController : MonoBehaviour, IDamageable
     }
 
     /// <summary>
-    /// A helper function that dynamically finds the player should these objects be instantiated from a prefab and their target has not been
+    /// A helper function that dynamically finds an object with a specific tag, should these objects be instantiated from a prefab and their target has not been
     /// defined manually in the inspector.
     /// </summary>
 
-    private void RegisterTarget()
+    private void RegisterTargetWithTag(string tag)
     {
         if (AgentTarget == null)
         {
-            AgentTarget = GameObject.FindGameObjectWithTag("Player");
+            AgentTarget = GameObject.FindGameObjectWithTag(tag);
         }
     }
 
@@ -349,7 +371,12 @@ public class ZombieController : MonoBehaviour, IDamageable
 
     private bool CanSeePlayer()
     {
-        return DistanceToPlayer() < AggroDistance ? true : false;
+        if (AgentTarget.activeInHierarchy)
+        {
+            return DistanceToPlayer() < AggroDistance ? true : false;
+        }
+
+        return false;
     }
 
     /// <summary>
@@ -412,7 +439,7 @@ public class ZombieController : MonoBehaviour, IDamageable
         CachedAnimatorControllerParameters = CachedAnimator.parameters;
         CachedRagdollController = GetComponentInParent<RagdollController>();
 
-        RegisterTarget();
+        RegisterTargetWithTag("Player");
     }
 
     private void Update()
