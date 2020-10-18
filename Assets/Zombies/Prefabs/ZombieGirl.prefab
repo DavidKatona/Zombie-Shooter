@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 376332586772644404}
   - component: {fileID: -6530076262303070370}
+  - component: {fileID: 4610553784886004166}
   m_Layer: 0
   m_Name: ZombieGirl
   m_TagString: Untagged
@@ -49,6 +50,21 @@ MonoBehaviour:
   _ragdoll: {fileID: 7865912886826571939}
   _ragdollHipsRigidbody: {fileID: 2164185290126729416}
   _navMeshAgent: {fileID: 1891087649308950287}
+--- !u!114 &4610553784886004166
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2427330952379701739}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 329782c8e1036bc4da945cc7f8e681bc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _animatedModel: {fileID: 7076864860570732334}
+  _zombieController: {fileID: 3377563713183465284}
+  _ragdollObject: {fileID: 7865912886826571939}
 --- !u!114 &2108090537462888265
 MonoBehaviour:
   m_ObjectHideFlags: 0

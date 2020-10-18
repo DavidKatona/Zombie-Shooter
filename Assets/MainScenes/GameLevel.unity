@@ -4656,7 +4656,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7969026464d281b45a18ca885d63ad1e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _poolTag: Zombieman
+  _poolTag: Zombiegirl
   _quantity: 15
   _delayBetweenSpawns: 1
   _spawnRadius: 20
@@ -13631,7 +13631,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7969026464d281b45a18ca885d63ad1e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _poolTag: Zombieman
+  _poolTag: Zombiejill
   _quantity: 4
   _delayBetweenSpawns: 0
   _spawnRadius: 10

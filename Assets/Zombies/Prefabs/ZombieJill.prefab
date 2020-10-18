@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7225330474653465379}
   - component: {fileID: 529678385105416209}
+  - component: {fileID: 5629962134149930338}
   m_Layer: 0
   m_Name: ZombieJill
   m_TagString: Untagged
@@ -49,6 +50,21 @@ MonoBehaviour:
   _ragdoll: {fileID: 3917568955949131384}
   _ragdollHipsRigidbody: {fileID: 7813778849901557555}
   _navMeshAgent: {fileID: 494075408713946109}
+--- !u!114 &5629962134149930338
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5153056582095069950}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 329782c8e1036bc4da945cc7f8e681bc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _animatedModel: {fileID: 8781416211704616809}
+  _zombieController: {fileID: 5813587640919630743}
+  _ragdollObject: {fileID: 3917568955949131384}
 --- !u!114 &6494656911311810018
 MonoBehaviour:
   m_ObjectHideFlags: 0

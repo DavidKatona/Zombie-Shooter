@@ -38,6 +38,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3187317496286956533}
   - component: {fileID: 194078643297552107}
+  - component: {fileID: 6366897116931218647}
   m_Layer: 0
   m_Name: ZombieBoss
   m_TagString: Untagged
@@ -77,6 +78,21 @@ MonoBehaviour:
   _ragdoll: {fileID: 3116493455307388912}
   _ragdollHipsRigidbody: {fileID: 1671205051988294466}
   _navMeshAgent: {fileID: 3730312958916464238}
+--- !u!114 &6366897116931218647
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7152815504272985662}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 329782c8e1036bc4da945cc7f8e681bc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _animatedModel: {fileID: 4360911272813151284}
+  _zombieController: {fileID: 1295249908820837294}
+  _ragdollObject: {fileID: 3116493455307388912}
 --- !u!1001 &2255869241501788166
 PrefabInstance:
   m_ObjectHideFlags: 0
