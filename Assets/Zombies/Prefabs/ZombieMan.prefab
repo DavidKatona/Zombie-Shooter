@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4371545625477566755}
   - component: {fileID: 8425471142725343634}
+  - component: {fileID: -3494965771839988101}
   m_Layer: 0
   m_Name: ZombieMan
   m_TagString: Untagged
@@ -49,6 +50,21 @@ MonoBehaviour:
   _ragdoll: {fileID: 8846953668820723924}
   _ragdollHipsRigidbody: {fileID: 713640681220160976}
   _navMeshAgent: {fileID: 1466528706029016953}
+--- !u!114 &-3494965771839988101
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3699976358676256820}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 329782c8e1036bc4da945cc7f8e681bc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _animatedModel: {fileID: 6020679921193225241}
+  _zombieController: {fileID: 1217901359382398876}
+  _ragdollObject: {fileID: 8846953668820723924}
 --- !u!114 &1256193640979738318
 MonoBehaviour:
   m_ObjectHideFlags: 0

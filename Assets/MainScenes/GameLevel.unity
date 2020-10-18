@@ -4656,8 +4656,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7969026464d281b45a18ca885d63ad1e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _prefabToSpawn: {fileID: 3699976358676256820, guid: 128bfa26ca02fb1419c63ea74082b2cd,
-    type: 3}
+  _poolTag: Zombieman
   _quantity: 15
   _delayBetweenSpawns: 1
   _spawnRadius: 20
@@ -8218,12 +8217,12 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1269296023}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -240.743, y: -7.8432975, z: -264.9436}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_Father: {fileID: 1901597512}
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1286558077
 PrefabInstance:
@@ -8325,6 +8324,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: adff7f3a621bdc04caa04a158a6ad2b7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _pools:
+  - _tag: Zombieman
+    _prefab: {fileID: 3699976358676256820, guid: 128bfa26ca02fb1419c63ea74082b2cd,
+      type: 3}
+    _size: 10
+  - _tag: Zombiegirl
+    _prefab: {fileID: 2427330952379701739, guid: c198c4de079bdd84b855915eb2407965,
+      type: 3}
+    _size: 10
+  - _tag: Zombiejill
+    _prefab: {fileID: 5153056582095069950, guid: 9a36a07941fbaa641a1ed2c7e35848ee,
+      type: 3}
+    _size: 10
+  - _tag: Zombieboss
+    _prefab: {fileID: 7152815504272985662, guid: 6357d3dbbb5749a419b291e2639d3f92,
+      type: 3}
+    _size: 10
 --- !u!4 &1295459002
 Transform:
   m_ObjectHideFlags: 0
@@ -8332,12 +8348,12 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1295459000}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 245, y: 1, z: 270}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1307420419
 PrefabInstance:
@@ -9350,8 +9366,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7969026464d281b45a18ca885d63ad1e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _prefabToSpawn: {fileID: 3699976358676256820, guid: 128bfa26ca02fb1419c63ea74082b2cd,
-    type: 3}
+  _poolTag: Zombieman
   _quantity: 6
   _delayBetweenSpawns: 0
   _spawnRadius: 10
@@ -11496,7 +11511,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1622597805
 PrefabInstance:
@@ -13112,8 +13127,9 @@ Transform:
   - {fileID: 305146694}
   - {fileID: 1357081924}
   - {fileID: 1899332364}
+  - {fileID: 1269296026}
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1902982642
 PrefabInstance:
@@ -13207,7 +13223,7 @@ Transform:
   m_Children:
   - {fileID: 1736414428}
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1969000054
 PrefabInstance:
@@ -13615,8 +13631,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7969026464d281b45a18ca885d63ad1e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _prefabToSpawn: {fileID: 5153056582095069950, guid: 9a36a07941fbaa641a1ed2c7e35848ee,
-    type: 3}
+  _poolTag: Zombieman
   _quantity: 4
   _delayBetweenSpawns: 0
   _spawnRadius: 10

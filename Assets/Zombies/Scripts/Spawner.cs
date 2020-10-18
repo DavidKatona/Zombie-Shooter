@@ -15,8 +15,8 @@ namespace Assets.Zombies.Scripts
         #region EDITOR EXPOSED FIELDS
 
         [Header("Spawner Settings")]
-        [Tooltip("The game object that will be spawned by this spawner.")]
-        [SerializeField] private GameObject _prefabToSpawn = null;
+        [Tooltip("The tag of the object pool from which this spawner should spawn objects.")]
+        [SerializeField] private string _poolTag = null;
 
         [Tooltip("The number of game objects to spawn.")]
         [SerializeField] private int _quantity = 0;
@@ -52,10 +52,10 @@ namespace Assets.Zombies.Scripts
         public ObjectPooler CachedObjectPooler { get; private set; }
 
         /// <summary>
-        /// The game object (prefab) that this spawner will instantiate.
+        /// The tag of the object pool from which this spawner should spawn objects from.
         /// </summary>
 
-        public GameObject PrefabToSpawn { get { return _prefabToSpawn; } }
+        public string PoolTag { get { return _poolTag; } }
 
         /// <summary>
         /// The number of game objects that will be instantiated by this specific spawner.
@@ -107,7 +107,7 @@ namespace Assets.Zombies.Scripts
             if (SpawnTrigger != null)
                 SpawnTrigger.enabled = false;
 
-            if (PrefabToSpawn == null)
+            if (string.IsNullOrWhiteSpace(PoolTag))
                 yield break;
 
             Debug.Log($"{gameObject.name}: starting spawn sequence with amount: {amount} objects, delay between spawns: {delay} seconds.");
@@ -121,7 +121,7 @@ namespace Assets.Zombies.Scripts
 
                 if (NavMesh.SamplePosition(randomPoint, out hit, Mathf.Infinity, NavMesh.AllAreas))
                 {
-                    var objectToSpawn = CachedObjectPooler.SpawnFromPool(gameObject.name, hit.position, Quaternion.identity);
+                    var objectToSpawn = CachedObjectPooler.SpawnFromPool(PoolTag, hit.position, Quaternion.identity);
 
                     // Parent the instantiated objects under another game object if that parent exists.
 
@@ -155,7 +155,6 @@ namespace Assets.Zombies.Scripts
 
             CachedTransform = GetComponent<Transform>();
             CachedObjectPooler = ObjectPooler.Instance;
-            CachedObjectPooler.AddPool(gameObject.name, Quantity, PrefabToSpawn, CachedTransform.position);
         }
 
         private void Start()

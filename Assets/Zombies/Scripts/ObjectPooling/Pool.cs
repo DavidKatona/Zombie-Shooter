@@ -14,11 +14,8 @@ namespace Assets.Zombies.Scripts.ObjectPooling
         [Tooltip("The prefab that defines the kind of instances this pool holds.")]
         [SerializeField] private GameObject _prefab;
 
-        #endregion
-
-        #region FIELDS
-
-        private int _size;
+        [Tooltip("The amount of objects stored in this pool.")]
+        [SerializeField] private int _size;
 
         #endregion
 

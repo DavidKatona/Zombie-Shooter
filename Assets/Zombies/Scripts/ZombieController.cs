@@ -389,7 +389,7 @@ public class ZombieController : MonoBehaviour, IDamageable
     /// </summary>
     /// <param name="nextState">The state to switch to.</param>
 
-    private void SwitchState(ZombieState nextState)
+    public void SwitchState(ZombieState nextState)
     {
         State = nextState;
     }

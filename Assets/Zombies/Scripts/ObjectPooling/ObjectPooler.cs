@@ -1,14 +1,20 @@
-﻿using System.Collections.Generic;
+﻿using Assets.Scripts.ObjectPooling;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace Assets.Zombies.Scripts.ObjectPooling
 {
     public class ObjectPooler : MonoBehaviour
     {
+        #region EDITOR EXPOSED FIELDS
+
+        [SerializeField] private List<Pool> _pools = new List<Pool>();
+
+        #endregion
+
         #region FIELDS
 
         private static ObjectPooler _instance;
-        private List<Pool> _pools = new List<Pool>();
 
         #endregion
 
@@ -94,6 +100,13 @@ namespace Assets.Zombies.Scripts.ObjectPooling
 
             GameObject objectToSpawn = PoolDictionary[tag].Dequeue();
 
+            IPooledObject pooledObject = objectToSpawn.GetComponent<IPooledObject>();
+
+            if (pooledObject != null)
+            {
+                pooledObject.OnObjectSpawned();
+            }
+
             objectToSpawn.transform.position = position;
             objectToSpawn.transform.rotation = rotation;
             objectToSpawn.SetActive(true);
@@ -113,6 +126,23 @@ namespace Assets.Zombies.Scripts.ObjectPooling
 
             InitializeInstance();
             PoolDictionary = new Dictionary<string, Queue<GameObject>>();
+        }
+
+        private void Start()
+        {
+            foreach (var pool in Pools)
+            {
+                Queue<GameObject> objectPool = new Queue<GameObject>();
+
+                for (int i = 0; i < pool.Size; i++)
+                {
+                    var obj = Instantiate(pool.Prefab, transform);
+                    obj.SetActive(false);
+                    objectPool.Enqueue(obj);
+                }
+
+                PoolDictionary.Add(pool.Tag, objectPool);
+            }
         }
 
         #endregion
