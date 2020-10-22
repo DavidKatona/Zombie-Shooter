@@ -44,6 +44,7 @@ namespace Assets.Scripts.CharacterController
         private bool _isReloadPressed;
         private bool _isHolsterPressed;
         private bool _canShoot = true;
+        private bool _canReload = true;
 
         #endregion
 
@@ -123,6 +124,7 @@ namespace Assets.Scripts.CharacterController
                 return;
 
             StartCoroutine(DisableShooting(1f));
+            StartCoroutine(DisableReloading(1.1f));
 
             // Notify the animator to start the "Firing" animation.
 
@@ -134,6 +136,13 @@ namespace Assets.Scripts.CharacterController
             _canShoot = false;
             yield return new WaitForSeconds(duration);
             _canShoot = true;
+        }
+
+        private IEnumerator DisableReloading(float duration)
+        {
+            _canReload = false;
+            yield return new WaitForSeconds(duration);
+            _canReload = true;
         }
 
         /// <summary>
@@ -183,12 +192,17 @@ namespace Assets.Scripts.CharacterController
 
         private void Reload()
         {
-            if (_isReloadPressed && !CachedAnimator.GetBool("IsGunHolstered"))
+            if (_isReloadPressed && !CachedAnimator.GetBool("IsGunHolstered") && _canReload)
             {
                 // If ammo pool is empty or clip is full, cancel reloading.
 
                 if (AmmoObject.RuntimeValue <= 0 || AmmoClipObject.RuntimeValue == AmmoClipObject.MaximumValue)
                     return;
+
+                // Disable shooting logic for the length of the reload animation.
+
+                StartCoroutine(DisableShooting(4f));
+                StartCoroutine(DisableReloading(4.1f));
 
                 // Play reloading sound effect.
 
