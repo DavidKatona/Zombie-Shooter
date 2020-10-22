@@ -123,26 +123,13 @@ namespace Assets.Scripts.CharacterController
             if (!_isFirePressed || CachedAnimator.GetBool("IsGunHolstered") || !_canShoot)
                 return;
 
-            StartCoroutine(DisableShooting(1f));
-            StartCoroutine(DisableReloading(1.1f));
+            // Disable shooting and reloading logic for the length of the reload animation.
+
+            DisableShootingAndReloading();
 
             // Notify the animator to start the "Firing" animation.
 
             CachedAnimator.SetTrigger("Fire");
-        }
-
-        private IEnumerator DisableShooting(float duration)
-        {
-            _canShoot = false;
-            yield return new WaitForSeconds(duration);
-            _canShoot = true;
-        }
-
-        private IEnumerator DisableReloading(float duration)
-        {
-            _canReload = false;
-            yield return new WaitForSeconds(duration);
-            _canReload = true;
         }
 
         /// <summary>
@@ -199,10 +186,9 @@ namespace Assets.Scripts.CharacterController
                 if (AmmoObject.RuntimeValue <= 0 || AmmoClipObject.RuntimeValue == AmmoClipObject.MaximumValue)
                     return;
 
-                // Disable shooting logic for the length of the reload animation.
+                // Disable shooting and reloading logic for the length of the reload animation.
 
-                StartCoroutine(DisableShooting(4f));
-                StartCoroutine(DisableReloading(4.1f));
+                DisableShootingAndReloading();
 
                 // Play reloading sound effect.
 
@@ -211,15 +197,42 @@ namespace Assets.Scripts.CharacterController
                 // Notify animator to play animation.
 
                 CachedAnimator.SetTrigger("Reload");
-
-                // Reloading logic.
-
-                var amountOfAmmoToReload = AmmoClipObject.MaximumValue - AmmoClipObject.RuntimeValue;
-                var amountOfAmmoAvailable = amountOfAmmoToReload < AmmoObject.RuntimeValue ? amountOfAmmoToReload : AmmoObject.RuntimeValue;
-
-                AmmoObject.RuntimeValue -= amountOfAmmoAvailable;
-                AmmoClipObject.RuntimeValue += amountOfAmmoAvailable;
             }
+        }
+
+        /// <summary>
+        /// Reloads ammunition from the ammo reserves to the ammo clip. Called from animation events. 
+        /// </summary>
+
+        private void ReloadAmmoToClip()
+        {
+            // Reloading logic.
+
+            var amountOfAmmoToReload = AmmoClipObject.MaximumValue - AmmoClipObject.RuntimeValue;
+            var amountOfAmmoAvailable = amountOfAmmoToReload < AmmoObject.RuntimeValue ? amountOfAmmoToReload : AmmoObject.RuntimeValue;
+
+            AmmoObject.RuntimeValue -= amountOfAmmoAvailable;
+            AmmoClipObject.RuntimeValue += amountOfAmmoAvailable;
+        }
+
+        /// <summary>
+        /// Enables shooting and reloading. Called from animation events.
+        /// </summary>
+
+        public void EnableShootingAndReloading()
+        {
+            _canShoot = true;
+            _canReload = true;
+        }
+
+        /// <summary>
+        /// Disable shooting and reloading.
+        /// </summary>
+
+        private void DisableShootingAndReloading()
+        {
+            _canShoot = false;
+            _canReload = false;
         }
 
         private void Holster()
