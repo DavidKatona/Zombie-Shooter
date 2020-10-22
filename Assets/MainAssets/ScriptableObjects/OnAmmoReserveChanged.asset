@@ -9,11 +9,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 294062295ea87464b8c3e166e98406c4, type: 3}
-  m_Name: AmmoClip
+  m_Script: {fileID: 11500000, guid: 83f75dab6d9a5a046a8a758bcbcc9d09, type: 3}
+  m_Name: OnAmmoReserveChanged
   m_EditorClassIdentifier: 
-  _initialValue: 12
-  _minimumValue: 0
-  _maximumValue: 12
-  _onRuntimeValueChanged: {fileID: 11400000, guid: ac3e0e65ab53fbf4ca791d2444a38564,
-    type: 2}

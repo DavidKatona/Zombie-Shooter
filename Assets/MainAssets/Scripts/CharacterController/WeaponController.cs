@@ -1,6 +1,8 @@
 ﻿using Assets.Scripts.Damageables.Common;
 using Assets.Scripts.Extensions;
 using Assets.Scripts.ScriptableObjects;
+using System.Collections;
+using UnityEditor.Animations;
 using UnityEngine;
 
 namespace Assets.Scripts.CharacterController
@@ -41,6 +43,7 @@ namespace Assets.Scripts.CharacterController
         private bool _isFirePressed;
         private bool _isReloadPressed;
         private bool _isHolsterPressed;
+        private bool _canShoot = true;
 
         #endregion
 
@@ -116,12 +119,21 @@ namespace Assets.Scripts.CharacterController
 
         private void Shoot()
         {
-            if (!_isFirePressed || CachedAnimator.GetBool("IsGunHolstered"))
+            if (!_isFirePressed || CachedAnimator.GetBool("IsGunHolstered") || !_canShoot)
                 return;
+
+            StartCoroutine(DisableShooting(1f));
 
             // Notify the animator to start the "Firing" animation.
 
             CachedAnimator.SetTrigger("Fire");
+        }
+
+        private IEnumerator DisableShooting(float duration)
+        {
+            _canShoot = false;
+            yield return new WaitForSeconds(duration);
+            _canShoot = true;
         }
 
         /// <summary>

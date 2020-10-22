@@ -15,3 +15,5 @@ MonoBehaviour:
   _initialValue: 100
   _minimumValue: 0
   _maximumValue: 100
+  _onRuntimeValueChanged: {fileID: 11400000, guid: 4a2598f82c90b9143b9a974c0c75c815,
+    type: 2}

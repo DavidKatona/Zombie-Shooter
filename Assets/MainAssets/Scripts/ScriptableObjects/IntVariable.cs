@@ -17,6 +17,10 @@ namespace Assets.Scripts.ScriptableObjects
         [Tooltip("The maximum value this scriptable object can store.")]
         [SerializeField] private int _maximumValue = 1;
 
+        [Header("Events")]
+        [Tooltip("The game event that should fire when this object's runtime value is changed.")]
+        [SerializeField] private GameEvent _onRuntimeValueChanged = null;
+
         #endregion
 
         #region FIELDS
@@ -48,6 +52,7 @@ namespace Assets.Scripts.ScriptableObjects
             {
                 _runtimeValue = value;
                 _runtimeValue = Mathf.Clamp(_runtimeValue, MinimumValue, MaximumValue);
+                OnRuntimeValueChanged?.Raise();
             }
         }
 
@@ -62,6 +67,12 @@ namespace Assets.Scripts.ScriptableObjects
         /// </summary>
 
         public int MaximumValue { get { return _maximumValue; } }
+
+        /// <summary>
+        /// The game event that should fire when this object's runtime value is changed.
+        /// </summary>
+
+        public GameEvent OnRuntimeValueChanged { get { return _onRuntimeValueChanged; } }
 
         #endregion
 
