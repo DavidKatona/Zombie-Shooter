@@ -65,6 +65,19 @@ MonoBehaviour:
   _animatedModel: {fileID: 6020679921193225241}
   _zombieController: {fileID: 1217901359382398876}
   _ragdollObject: {fileID: 8846953668820723924}
+--- !u!114 &2135014749
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6020679921193225241}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b031b199c0fa93f4cba3454624d36602, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _image: {fileID: 3102302379477504934, guid: 936cacc35ac884f8bb0806cb1f2ad408, type: 3}
 --- !u!1001 &1466528707058152505
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -284,7 +297,7 @@ PrefabInstance:
     - target: {fileID: 8973730310749034100, guid: 7ee603c9b461f0e43832106d8dd292ad,
         type: 3}
       propertyPath: m_ConnectedAnchor.z
-      value: -0.0057772235
+      value: -0.0057619647
       objectReference: {fileID: 0}
     - target: {fileID: 8973730310749034100, guid: 7ee603c9b461f0e43832106d8dd292ad,
         type: 3}
@@ -299,7 +312,7 @@ PrefabInstance:
     - target: {fileID: 8973730311055236192, guid: 7ee603c9b461f0e43832106d8dd292ad,
         type: 3}
       propertyPath: m_ConnectedAnchor.z
-      value: -0.038601566
+      value: -0.038616825
       objectReference: {fileID: 0}
     - target: {fileID: 8973730311207015464, guid: 7ee603c9b461f0e43832106d8dd292ad,
         type: 3}
@@ -309,7 +322,7 @@ PrefabInstance:
     - target: {fileID: 8973730311207015464, guid: 7ee603c9b461f0e43832106d8dd292ad,
         type: 3}
       propertyPath: m_ConnectedAnchor.z
-      value: -0.000011467307
+      value: 0.0000037914826
       objectReference: {fileID: 0}
     - target: {fileID: 8973730311227398494, guid: 7ee603c9b461f0e43832106d8dd292ad,
         type: 3}
@@ -319,7 +332,7 @@ PrefabInstance:
     - target: {fileID: 8973730311227398494, guid: 7ee603c9b461f0e43832106d8dd292ad,
         type: 3}
       propertyPath: m_ConnectedAnchor.z
-      value: -0.000011466686
+      value: 0.0000037921025
       objectReference: {fileID: 0}
     - target: {fileID: 8973730311227398494, guid: 7ee603c9b461f0e43832106d8dd292ad,
         type: 3}
