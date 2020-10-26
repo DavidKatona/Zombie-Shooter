@@ -7,7 +7,7 @@ namespace Assets.MainAssets.Scripts.UI.PlayerHUD.Compass
     {
         #region EDITOR EXPOSED FIELDS
 
-        [SerializeField] private Transform _cachedGoalTransform = null;
+        [SerializeField] private Transform _objectiveTransform = null;
         [SerializeField] private GameObject _pointer = null;
         [SerializeField] private RectTransform _compassBar = null;
 
@@ -28,10 +28,10 @@ namespace Assets.MainAssets.Scripts.UI.PlayerHUD.Compass
         public Transform CachedPlayerTransform { get; private set; }
         
         /// <summary>
-        /// The cached transform component attached to the goal game object.
+        /// The cached transform component attached to the goal/objective game object.
         /// </summary>
 
-        public Transform CachedGoalTransform { get { return _cachedGoalTransform; } }
+        public Transform ObjectiveTransform { get { return _objectiveTransform; } }
 
         /// <summary>
         /// The UI element (usually an arrow) that points towards the goal's transform.
@@ -75,7 +75,7 @@ namespace Assets.MainAssets.Scripts.UI.PlayerHUD.Compass
         {
             // Compute the direction the pointer should aim towards.
 
-            Vector3 direction = CachedGoalTransform.position - CachedPlayerTransform.position;
+            Vector3 direction = ObjectiveTransform.position - CachedPlayerTransform.position;
 
             // Determine the angle between the player's forward vector and our direction.
 
