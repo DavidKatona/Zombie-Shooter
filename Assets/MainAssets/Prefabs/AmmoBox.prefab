@@ -802,6 +802,7 @@ GameObject:
   - component: {fileID: 2322193785830790057}
   - component: {fileID: 406156681}
   - component: {fileID: 620012380097419231}
+  - component: {fileID: 2360264949678175011}
   m_Layer: 0
   m_Name: AmmoBox
   m_TagString: Untagged
@@ -862,6 +863,19 @@ MonoBehaviour:
   _pickupSound: {fileID: 8300000, guid: 82e71dd3c93674d428c1ca9891525d11, type: 3}
   _targetObject: {fileID: 11400000, guid: 6f3caf6c8383b6f4e9c7c3a46974194e, type: 2}
   _ammoRestored: 8
+--- !u!114 &2360264949678175011
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5710403498752496786}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b031b199c0fa93f4cba3454624d36602, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _image: {fileID: 8996963038133221675, guid: 12ddc2babdd5abf4083da4fb65fb564f, type: 3}
 --- !u!1 &7851647358036705380
 GameObject:
   m_ObjectHideFlags: 0

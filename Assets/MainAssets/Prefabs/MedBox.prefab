@@ -834,6 +834,7 @@ GameObject:
   - component: {fileID: 7272216977675260089}
   - component: {fileID: 2080441903}
   - component: {fileID: 3202807450121171626}
+  - component: {fileID: 40178683514748321}
   m_Layer: 0
   m_Name: MedBox
   m_TagString: Untagged
@@ -895,6 +896,19 @@ MonoBehaviour:
   _pickupSound: {fileID: 8300000, guid: 58579f4678e474f4cac2049cf5ac8d1a, type: 3}
   _targetObject: {fileID: 11400000, guid: fb9f3d680cfe26e4ca6e3bb0a14ab613, type: 2}
   _healthRestored: 25
+--- !u!114 &40178683514748321
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7741545902358665241}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b031b199c0fa93f4cba3454624d36602, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _image: {fileID: 6491149797554527529, guid: 012b58853af1ca34394fd7cac6e94be9, type: 3}
 --- !u!1 &8336790774369294240
 GameObject:
   m_ObjectHideFlags: 0
