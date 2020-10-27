@@ -73,6 +73,9 @@ namespace Assets.MainAssets.Scripts.UI.PlayerHUD.Compass
 
         private void Update()
         {
+            if (ObjectiveTransform == null || CachedPlayerTransform == null)
+                return;
+
             // Compute the direction the pointer should aim towards.
 
             Vector3 direction = ObjectiveTransform.position - CachedPlayerTransform.position;
