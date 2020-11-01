@@ -1,4 +1,5 @@
 ﻿using Assets.Scripts.Audio;
+using System.Collections;
 using UnityEngine;
 
 namespace Assets.Scripts.CharacterController
@@ -35,6 +36,8 @@ namespace Assets.Scripts.CharacterController
         private Vector3 _lastGroundedPosition;
         private Quaternion _cameraRotation;
         private Quaternion _characterRotation;
+
+        private Coroutine _lateFixedUpdateCoroutine = null;
 
         #endregion
 
@@ -236,6 +239,11 @@ namespace Assets.Scripts.CharacterController
             _yAxisRotation = Input.GetAxis("Mouse X") * MouseSensitivity;
             _xAxisRotation = Input.GetAxis("Mouse Y") * MouseSensitivity;
 
+            CharacterRotation *= Quaternion.Euler(0, _yAxisRotation, 0);
+            CameraRotation *= Quaternion.Euler(-_xAxisRotation, 0, 0);
+            CameraRotation = ClampCameraPitch(CameraRotation);
+            CachedCamera.transform.localRotation = CameraRotation;
+
             HandleInteractions();
         }
 
@@ -257,19 +265,29 @@ namespace Assets.Scripts.CharacterController
                 }
             }
 
-            // Compute the where we would like to move and limit our resulting vector's magnitude to our speed, so walking diagonally doesn't cause faster movement.
+            // Compute where we would like to move and limit our resulting vector's magnitude to our speed, so walking diagonally doesn't cause faster movement.
 
             var forwardMomentum = CachedTransform.forward * _zAxisInputModifier * Speed;
             var rightMomentum = CachedTransform.right * _xAxisInputModifier * Speed;
             var desiredMomentum = Vector3.ClampMagnitude(forwardMomentum + rightMomentum, Speed);
-            CachedTransform.position += desiredMomentum;
 
-            CharacterRotation *= Quaternion.Euler(0, _yAxisRotation, 0);
-            CachedTransform.localRotation = CharacterRotation;
+            // Change Rigidbody velocity instead of teleporting the transform (CachedTransform.position += desiredMomentum;) in FixedUpdate so our movement will be much smoother.
 
-            CameraRotation *= Quaternion.Euler(-_xAxisRotation, 0, 0);
-            CameraRotation = ClampCameraPitch(CameraRotation);
-            CachedCamera.transform.localRotation = CameraRotation;
+            CachedRigidbody.velocity = new Vector3(desiredMomentum.x, CachedRigidbody.velocity.y, desiredMomentum.z);
+        }
+
+        private IEnumerator LateFixedUpdate()
+        {
+            var waitTime = new WaitForFixedUpdate();
+
+            while (true)
+            {
+                yield return waitTime;
+
+                // Update rigidbody rotation
+
+                CachedRigidbody.MoveRotation(CharacterRotation);
+            }
         }
 
         private void OnCollisionEnter(Collision collision)
@@ -280,9 +298,24 @@ namespace Assets.Scripts.CharacterController
             }
         }
 
+        public void OnEnable()
+        {
+            // Initialize LateFixedUpdate coroutine
+
+            if (_lateFixedUpdateCoroutine != null)
+                StopCoroutine(_lateFixedUpdateCoroutine);
+
+            _lateFixedUpdateCoroutine = StartCoroutine(LateFixedUpdate());
+        }
+
         private void OnDisable()
         {
             CancelInvoke("InvokeFootstepSounds");
+
+            // Stop LateFixedUpdate coroutine
+
+            if (_lateFixedUpdateCoroutine != null)
+                StopCoroutine(_lateFixedUpdateCoroutine);
         }
 
         #endregion
