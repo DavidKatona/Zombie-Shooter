@@ -1,4 +1,6 @@
-﻿namespace Assets.Scripts.Damageables.Common
+﻿using UnityEngine;
+
+namespace Assets.Scripts.Damageables.Common
 {
     public interface IDamageable
     {

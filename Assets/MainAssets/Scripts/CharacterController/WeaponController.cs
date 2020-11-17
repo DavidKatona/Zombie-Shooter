@@ -158,8 +158,6 @@ namespace Assets.Scripts.CharacterController
             RaycastHit hitInfo;
             if (Physics.Raycast(FirepointTransform.position, Camera.main.transform.forward, out hitInfo, 200))
             {
-                CachedObjectPooler.SpawnFromPool("BloodSplatter", hitInfo.point, Quaternion.identity);
-
                 GameObject objectToHit = hitInfo.collider.gameObject;
                 IDamageable damageable = objectToHit.GetComponent<IDamageable>();
 
