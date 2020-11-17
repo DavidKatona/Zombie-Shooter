@@ -169,7 +169,7 @@ namespace Assets.Scripts.CharacterController
         }
 
         /// <summary>
-        /// Decreses the amount of ammunition supplied for the weapon. Called from animation events.
+        /// Decreases the amount of ammunition supplied for the weapon. Called from animation events.
         /// </summary>
 
         private void DecrementAmmo()
