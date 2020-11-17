@@ -1,8 +1,6 @@
 ﻿using Assets.Scripts.Damageables.Common;
-using Assets.Scripts.Extensions;
 using Assets.Scripts.ScriptableObjects;
-using System.Collections;
-using UnityEditor.Animations;
+using Assets.Zombies.Scripts.ObjectPooling;
 using UnityEngine;
 
 namespace Assets.Scripts.CharacterController
@@ -61,6 +59,12 @@ namespace Assets.Scripts.CharacterController
         /// </summary>
 
         public AudioSource CachedAudioSource { get; private set; }
+
+        /// <summary>
+        /// The cached object pooler instance.
+        /// </summary>
+
+        public ObjectPooler CachedObjectPooler { get; private set; }
 
         /// <summary>
         /// The scriptable object that holds information about the character's ammunition and this game object interacts with.
@@ -151,10 +155,11 @@ namespace Assets.Scripts.CharacterController
             if (AmmoClipObject.RuntimeValue <= 0)
                 return;
 
-
             RaycastHit hitInfo;
             if (Physics.Raycast(FirepointTransform.position, Camera.main.transform.forward, out hitInfo, 200))
             {
+                CachedObjectPooler.SpawnFromPool("BloodSplatter", hitInfo.point, Quaternion.identity);
+
                 GameObject objectToHit = hitInfo.collider.gameObject;
                 IDamageable damageable = objectToHit.GetComponent<IDamageable>();
 
@@ -253,6 +258,7 @@ namespace Assets.Scripts.CharacterController
 
             CachedAnimator = GetComponent<Animator>();
             CachedAudioSource = GetComponent<AudioSource>();
+            CachedObjectPooler = ObjectPooler.Instance;
         }
 
         private void Update()

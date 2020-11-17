@@ -9506,6 +9506,10 @@ MonoBehaviour:
     _prefab: {fileID: 7152815504272985662, guid: 6357d3dbbb5749a419b291e2639d3f92,
       type: 3}
     _size: 10
+  - _tag: BloodSplatter
+    _prefab: {fileID: 6189714600239079546, guid: 9ccb8f8823eee93468459f4c1e35bf8b,
+      type: 3}
+    _size: 10
 --- !u!4 &1295459002
 Transform:
   m_ObjectHideFlags: 0
