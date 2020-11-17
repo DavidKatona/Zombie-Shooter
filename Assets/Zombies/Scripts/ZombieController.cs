@@ -3,9 +3,11 @@ using UnityEngine.AI;
 using Assets.Zombies.Scripts;
 using Assets.Zombies.Scripts.Ragdoll;
 using Assets.Scripts.Damageables.Common;
+using Assets.MainAssets.Scripts.Damageables.Common;
+using Assets.Zombies.Scripts.ObjectPooling;
 
 [RequireComponent(typeof(NavMeshAgent))]
-public class ZombieController : MonoBehaviour, IDamageable
+public class ZombieController : MonoBehaviour, IDamageable, IRaycastHittable
 {
     #region EDITOR EXPOSED FIELDS
 
@@ -85,6 +87,12 @@ public class ZombieController : MonoBehaviour, IDamageable
     /// </summary>
 
     public RagdollController CachedRagdollController { get; private set; }
+
+    /// <summary>
+    /// The cached object pooler instance.
+    /// </summary>
+
+    public ObjectPooler CachedObjectPooler { get; private set; }
 
     /// <summary>
     /// The state this zombie is currently in. Represents the current behaviour its doing.
@@ -330,6 +338,14 @@ public class ZombieController : MonoBehaviour, IDamageable
         CachedRagdollController.RagdollHipsRigidbody.AddForce(Camera.main.transform.forward * 3000);
     }
 
+    public void RegisterHit(RaycastHit raycastHit, Vector3 raycastOrigin)
+    {
+        // Add blood splatter effect.
+
+        Quaternion targetRotation = Quaternion.LookRotation(raycastOrigin - raycastHit.point);
+        CachedObjectPooler.SpawnFromPool("BloodSplatter", raycastHit.point, targetRotation);
+    }
+
     /// <summary>
     /// A helper function that dynamically finds an object with a specific tag, should these objects be instantiated from a prefab and their target has not been
     /// defined manually in the inspector.
@@ -433,6 +449,7 @@ public class ZombieController : MonoBehaviour, IDamageable
         CachedAnimator = GetComponent<Animator>();
         CachedAnimatorControllerParameters = CachedAnimator.parameters;
         CachedRagdollController = GetComponentInParent<RagdollController>();
+        CachedObjectPooler = ObjectPooler.Instance;
 
         RegisterTargetWithTag("Player");
     }
