@@ -1,6 +1,7 @@
 ﻿using Assets.MainAssets.Scripts.Damageables.Common;
 using Assets.Scripts.Damageables.Common;
 using Assets.Scripts.ScriptableObjects;
+using Assets.Zombies.Scripts.ObjectPooling;
 using UnityEngine;
 
 namespace Assets.Scripts.CharacterController
@@ -18,6 +19,10 @@ namespace Assets.Scripts.CharacterController
 
         [Tooltip("The firepoint of the weapon from which rays are cast and effects are instantiated at.")]
         [SerializeField] private Transform _firepointTransform = null;
+
+        [Header("Effects")]
+        [Tooltip("The particle system that plays when the weapon is fired and is considered to be a muzzle flash.")]
+        [SerializeField] private ParticleSystem _muzzleFlash = null;
 
         [Header("Options")]
         [Tooltip("The amount of ammunition the weapon uses per shot.")]
@@ -61,6 +66,12 @@ namespace Assets.Scripts.CharacterController
         public AudioSource CachedAudioSource { get; private set; }
 
         /// <summary>
+        /// The cached object pooler instance.
+        /// </summary>
+
+        public ObjectPooler CachedObjectPooler { get; private set; }
+
+        /// <summary>
         /// The scriptable object that holds information about the character's ammunition and this game object interacts with.
         /// </summary>
 
@@ -77,6 +88,12 @@ namespace Assets.Scripts.CharacterController
         /// </summary>
 
         public Transform FirepointTransform { get { return _firepointTransform; } }
+
+        /// <summary>
+        /// The particle system that plays when the weapon is fired and is considered to be a muzzle flash.
+        /// </summary>
+
+        public ParticleSystem MuzzleFlash { get { return _muzzleFlash; } }
 
         /// <summary>
         /// The amount of ammunition depleted when this weapon is fired (ammo/shot).
@@ -141,6 +158,13 @@ namespace Assets.Scripts.CharacterController
             var clipToPlay = AmmoClipObject.RuntimeValue > 0 ? WeaponShotClip : WeaponTriggerClip;
             CachedAudioSource.PlayOneShot(clipToPlay);
 
+            // Particle effects.
+
+            if (AmmoClipObject.RuntimeValue > 0)
+            {
+                MuzzleFlash.Play();
+            }
+
             HandleShootingLogic();
         }
 
@@ -152,6 +176,8 @@ namespace Assets.Scripts.CharacterController
             RaycastHit hitInfo;
             if (Physics.Raycast(FirepointTransform.position, Camera.main.transform.forward, out hitInfo, 200))
             {
+                CachedObjectPooler.SpawnFromPool("BulletImpact", hitInfo.point, Quaternion.LookRotation(hitInfo.normal));
+
                 GameObject objectToHit = hitInfo.collider.gameObject;
 
                 IRaycastHittable raycastHittable;
@@ -256,6 +282,7 @@ namespace Assets.Scripts.CharacterController
 
             CachedAnimator = GetComponent<Animator>();
             CachedAudioSource = GetComponent<AudioSource>();
+            CachedObjectPooler = ObjectPooler.Instance;
         }
 
         private void Update()
