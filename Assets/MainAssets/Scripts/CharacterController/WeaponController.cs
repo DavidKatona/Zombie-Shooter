@@ -176,14 +176,16 @@ namespace Assets.Scripts.CharacterController
             RaycastHit hitInfo;
             if (Physics.Raycast(FirepointTransform.position, Camera.main.transform.forward, out hitInfo, 200))
             {
-                CachedObjectPooler.SpawnFromPool("BulletImpact", hitInfo.point, Quaternion.LookRotation(hitInfo.normal));
-
                 GameObject objectToHit = hitInfo.collider.gameObject;
 
                 IRaycastHittable raycastHittable;
                 if (objectToHit.TryGetComponent<IRaycastHittable>(out raycastHittable))
                 {
                     raycastHittable.RegisterHit(hitInfo, FirepointTransform.position);
+                }
+                else
+                {
+                    CachedObjectPooler.SpawnFromPool("BulletImpact", hitInfo.point, Quaternion.LookRotation(hitInfo.normal));
                 }
 
                 IDamageable damageable;

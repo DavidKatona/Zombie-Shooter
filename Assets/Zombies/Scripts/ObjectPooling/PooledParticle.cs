@@ -5,6 +5,14 @@ using UnityEngine;
 [RequireComponent(typeof(ParticleSystem))]
 public class PooledParticle : MonoBehaviour, IPooledObject
 {
+    #region EDITOR EXPOSED FIELDS
+
+    [Header("Options")]
+    [Tooltip("How long the particle should live before it's disabled and prepared for being pooled again.")]
+    [SerializeField] private float _particleLifetime = 1f;
+
+    #endregion
+
     #region PROPERTIES
 
     /// <summary>
@@ -12,6 +20,12 @@ public class PooledParticle : MonoBehaviour, IPooledObject
     /// </summary>
 
     public ParticleSystem CachedParticleSystem { get; private set; }
+
+    /// <summary>
+    /// How long the particle should live before it's disabled and prepared for being pooled again.
+    /// </summary>
+
+    public float ParticleLifetime { get { return _particleLifetime; } }
 
     #endregion
 
@@ -57,7 +71,7 @@ public class PooledParticle : MonoBehaviour, IPooledObject
 
     private void OnEnable()
     {
-        StartCoroutine(DisableParticle(CachedParticleSystem.main.startLifetimeMultiplier));
+        StartCoroutine(DisableParticle(ParticleLifetime));
     }
 
     #endregion

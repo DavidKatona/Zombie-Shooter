@@ -9513,7 +9513,7 @@ MonoBehaviour:
   - _tag: BulletImpact
     _prefab: {fileID: 6977630665820196667, guid: a1d7e8423bb1c444f992512b6de57b68,
       type: 3}
-    _size: 10
+    _size: 12
 --- !u!4 &1295459002
 Transform:
   m_ObjectHideFlags: 0

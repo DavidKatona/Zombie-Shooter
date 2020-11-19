@@ -624,7 +624,7 @@ ParticleSystem:
     serializedVersion: 6
     enabled: 1
     type: 4
-    angle: 25
+    angle: 90
     length: 5
     boxThickness: {x: 0, y: 0, z: 0}
     radiusThickness: 1
@@ -1283,8 +1283,8 @@ ParticleSystem:
     enabled: 1
     x:
       serializedVersion: 2
-      minMaxState: 0
-      scalar: 0
+      minMaxState: 2
+      scalar: 1
       minScalar: 0
       maxCurve:
         serializedVersion: 2
@@ -1336,8 +1336,8 @@ ParticleSystem:
         m_RotationOrder: 4
     y:
       serializedVersion: 2
-      minMaxState: 0
-      scalar: 0
+      minMaxState: 2
+      scalar: 1
       minScalar: 0
       maxCurve:
         serializedVersion: 2
@@ -5005,7 +5005,7 @@ ParticleSystem:
     startLifetime:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 0.1
+      scalar: 5
       minScalar: 5
       maxCurve:
         serializedVersion: 2
@@ -6140,7 +6140,7 @@ ParticleSystem:
       maxGradient:
         serializedVersion: 2
         key0: {r: 1, g: 1, b: 1, a: 1}
-        key1: {r: 0.84705883, g: 0.5137255, b: 0.011764706, a: 1}
+        key1: {r: 0.84705883, g: 0.5137255, b: 0.011764706, a: 0}
         key2: {r: 1, g: 1, b: 1, a: 0}
         key3: {r: 0, g: 0, b: 0, a: 0}
         key4: {r: 0, g: 0, b: 0, a: 0}
@@ -6148,7 +6148,7 @@ ParticleSystem:
         key6: {r: 0, g: 0, b: 0, a: 0}
         key7: {r: 0, g: 0, b: 0, a: 0}
         ctime0: 0
-        ctime1: 11881
+        ctime1: 13107
         ctime2: 65535
         ctime3: 0
         ctime4: 0
@@ -6157,7 +6157,7 @@ ParticleSystem:
         ctime7: 0
         atime0: 0
         atime1: 65535
-        atime2: 0
+        atime2: 20817
         atime3: 0
         atime4: 0
         atime5: 0
@@ -9642,6 +9642,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 30b5dc9bed50aa444ba1ce9f8bfabe15, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _particleLifetime: 5
 --- !u!1 &6977630665820196669
 GameObject:
   m_ObjectHideFlags: 0

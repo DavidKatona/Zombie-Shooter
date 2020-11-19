@@ -4883,3 +4883,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 30b5dc9bed50aa444ba1ce9f8bfabe15, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _particleLifetime: 0.3
